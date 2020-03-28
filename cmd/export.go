@@ -28,7 +28,7 @@ import (
 	"github.com/k1LoW/frgm/config"
 	"github.com/k1LoW/frgm/drivers"
 	"github.com/k1LoW/frgm/drivers/alfred"
-	"github.com/k1LoW/frgm/drivers/self"
+	"github.com/k1LoW/frgm/drivers/frgm"
 	"github.com/spf13/cobra"
 )
 
@@ -57,7 +57,7 @@ func runExport(args []string) (int, error) {
 		loader   drivers.Loader
 		exporter drivers.Exporter
 	)
-	loader = self.New()
+	loader = frgm.New()
 
 	switch format {
 	case "alfred":

@@ -1,4 +1,4 @@
-package self
+package frgm
 
 import (
 	"crypto/sha256"
