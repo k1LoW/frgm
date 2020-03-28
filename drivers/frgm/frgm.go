@@ -32,13 +32,12 @@ func (f *Frgm) Load(src string) ([]snippet.Snippet, error) {
 		if info.IsDir() {
 			return nil
 		}
-		file, err := os.Open(path)
+		file, err := os.Open(filepath.Clean(path))
 		if err != nil {
 			return err
 		}
 		fn := file.Name()
 		group := filepath.Base(fn[:len(fn)-len(filepath.Ext(fn))])
-		defer file.Close()
 		s, err := f.LoadSet(file, group)
 		if err != nil {
 			return err
