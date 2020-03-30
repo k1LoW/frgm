@@ -49,7 +49,6 @@ func (f *Frgm) Load(src string) (snippet.Snippets, error) {
 			if i.MatchesPath(path) {
 				return nil
 			}
-
 			file, err := os.Open(filepath.Clean(path))
 			if err != nil {
 				return err
@@ -61,8 +60,6 @@ func (f *Frgm) Load(src string) (snippet.Snippets, error) {
 				return err
 			}
 			snippets = append(snippets, s...)
-			return nil
-
 			return nil
 		},
 	})
