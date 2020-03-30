@@ -10,6 +10,7 @@ import (
 // avairable config and default
 var configs = map[string]interface{}{
 	"global.snippets_path": filepath.Join(dataPath(), "snippets"),
+	"global.ignore":        []string{".git"},
 }
 
 // Load config.toml
@@ -30,12 +31,8 @@ func Set(k, v string) error {
 }
 
 // Get value from config
-func Get(k string) string {
-	switch v := viper.Get(k).(type) {
-	case string:
-		return v
-	}
-	return ""
+func Get(k string) interface{} {
+	return viper.Get(k)
 }
 
 // Save config.toml

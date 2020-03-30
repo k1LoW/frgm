@@ -12,13 +12,18 @@ import (
 	"github.com/goccy/go-yaml"
 	"github.com/k1LoW/frgm/snippet"
 	"github.com/karrick/godirwalk"
+	gitignore "github.com/sabhiram/go-gitignore"
 )
 
-type Frgm struct{}
+type Frgm struct {
+	ignore []string
+}
 
 // New return new Frgm
-func New() *Frgm {
-	return &Frgm{}
+func New(ignore []string) *Frgm {
+	return &Frgm{
+		ignore: ignore,
+	}
 }
 
 func (f *Frgm) Load(src string) (snippet.Snippets, error) {
@@ -26,8 +31,12 @@ func (f *Frgm) Load(src string) (snippet.Snippets, error) {
 	if _, err := os.Lstat(src); err != nil {
 		return snippets, err
 	}
+	i, err := gitignore.CompileIgnoreLines(f.ignore...)
+	if err != nil {
+		return snippets, err
+	}
 
-	err := godirwalk.Walk(src, &godirwalk.Options{
+	err = godirwalk.Walk(src, &godirwalk.Options{
 		FollowSymbolicLinks: true,
 		Callback: func(path string, de *godirwalk.Dirent) error {
 			b, err := de.IsDirOrSymlinkToDir()
@@ -35,6 +44,9 @@ func (f *Frgm) Load(src string) (snippet.Snippets, error) {
 				return err
 			}
 			if b {
+				return nil
+			}
+			if i.MatchesPath(path) {
 				return nil
 			}
 
