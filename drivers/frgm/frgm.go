@@ -10,6 +10,7 @@ import (
 
 	"github.com/goccy/go-yaml"
 	"github.com/k1LoW/frgm/snippet"
+	"github.com/karrick/godirwalk"
 )
 
 type Frgm struct{}
@@ -25,25 +26,32 @@ func (f *Frgm) Load(src string) (snippet.Snippets, error) {
 		return snippets, err
 	}
 
-	err := filepath.Walk(src, func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-		if info.IsDir() {
+	err := godirwalk.Walk(src, &godirwalk.Options{
+		FollowSymbolicLinks: true,
+		Callback: func(path string, de *godirwalk.Dirent) error {
+			b, err := de.IsDirOrSymlinkToDir()
+			if err != nil {
+				return err
+			}
+			if b {
+				return nil
+			}
+
+			file, err := os.Open(filepath.Clean(path))
+			if err != nil {
+				return err
+			}
+			fn := file.Name()
+			group := filepath.Base(fn[:len(fn)-len(filepath.Ext(fn))])
+			s, err := f.LoadSet(file, group)
+			if err != nil {
+				return err
+			}
+			snippets = append(snippets, s...)
 			return nil
-		}
-		file, err := os.Open(filepath.Clean(path))
-		if err != nil {
-			return err
-		}
-		fn := file.Name()
-		group := filepath.Base(fn[:len(fn)-len(filepath.Ext(fn))])
-		s, err := f.LoadSet(file, group)
-		if err != nil {
-			return err
-		}
-		snippets = append(snippets, s...)
-		return nil
+
+			return nil
+		},
 	})
 
 	if err != nil {
