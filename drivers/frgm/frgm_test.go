@@ -57,7 +57,7 @@ snippets:
 
 	for _, tt := range tests {
 		in := bytes.NewBufferString(tt.in)
-		frgm := New()
+		frgm := New([]string{})
 		got, err := frgm.LoadSet(in, "default-group")
 		if err != nil {
 			t.Fatal(err)
