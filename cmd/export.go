@@ -70,6 +70,11 @@ func runExport(args []string) (int, error) {
 	if err != nil {
 		return 1, err
 	}
+
+	if err := snippets.Validate(); err != nil {
+		return 1, err
+	}
+
 	err = exporter.Export(snippets, destPath)
 	if err != nil {
 		return 1, err

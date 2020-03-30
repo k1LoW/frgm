@@ -19,8 +19,8 @@ func New() *Frgm {
 	return &Frgm{}
 }
 
-func (f *Frgm) Load(src string) ([]snippet.Snippet, error) {
-	snippets := []snippet.Snippet{}
+func (f *Frgm) Load(src string) (snippet.Snippets, error) {
+	snippets := snippet.Snippets{}
 	if _, err := os.Lstat(src); err != nil {
 		return snippets, err
 	}
@@ -53,8 +53,8 @@ func (f *Frgm) Load(src string) ([]snippet.Snippet, error) {
 	return snippets, nil
 }
 
-func (f *Frgm) LoadSet(in io.Reader, defaultGroup string) ([]snippet.Snippet, error) {
-	snippets := []snippet.Snippet{}
+func (f *Frgm) LoadSet(in io.Reader, defaultGroup string) (snippet.Snippets, error) {
+	snippets := snippet.Snippets{}
 	set := &snippet.SnippetSet{}
 	buf, err := ioutil.ReadAll(in)
 	if err != nil {

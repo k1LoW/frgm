@@ -41,7 +41,7 @@ func NewSnippet(u, n, s, k string) Snippet {
 	}
 }
 
-func (a *Alfred) Export(snippets []snippet.Snippet, dest string) error {
+func (a *Alfred) Export(snippets snippet.Snippets, dest string) error {
 	d, err := os.Stat(dest)
 	if err != nil {
 		return err
