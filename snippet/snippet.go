@@ -70,5 +70,6 @@ func (snips Snippets) Validate() error {
 }
 
 type SnippetSet struct {
+	Group    string   `yaml:"group,omitempty"`
 	Snippets Snippets `yaml:"snippets"`
 }
