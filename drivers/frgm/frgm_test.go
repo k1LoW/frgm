@@ -73,3 +73,13 @@ snippets:
 		}
 	}
 }
+
+func TestGenUID(t *testing.T) {
+	got, err := genUID("", "", "")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if want := "frgm-d8156bae0c42"; got != want {
+		t.Errorf("got %v want %v", got, want)
+	}
+}

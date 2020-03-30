@@ -106,5 +106,6 @@ func genUID(g, d, c string) (string, error) {
 	if _, err := io.WriteString(h, fmt.Sprintf("%s-%s-%s", g, d, c)); err != nil {
 		return "", err
 	}
-	return fmt.Sprintf("frgm-%x", h.Sum(nil)), nil
+	s := fmt.Sprintf("%x", h.Sum(nil))
+	return fmt.Sprintf("frgm-%s", s[:12]), nil
 }
