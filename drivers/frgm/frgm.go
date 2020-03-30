@@ -1,6 +1,7 @@
 package frgm
 
 import (
+	"bytes"
 	"crypto/sha256"
 	"fmt"
 	"io"
@@ -67,6 +68,9 @@ func (f *Frgm) LoadSet(in io.Reader, defaultGroup string) (snippet.Snippets, err
 	buf, err := ioutil.ReadAll(in)
 	if err != nil {
 		return snippets, err
+	}
+	if !bytes.Contains(buf, []byte("snippets:")) {
+		return snippets, nil
 	}
 	err = yaml.Unmarshal(buf, set)
 	if err != nil {
