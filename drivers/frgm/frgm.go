@@ -90,7 +90,7 @@ func (f *Frgm) LoadSet(in io.Reader, defaultGroup string) (snippet.Snippets, err
 			s.Group = defaultGroup
 		}
 		if s.UID == "" {
-			uid, err := genUID(s.Group, s.Desc, s.Content)
+			uid, err := genUID(s.Group, s.Name, s.Content)
 			if err != nil {
 				return snippets, err
 			}

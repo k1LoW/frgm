@@ -8,7 +8,7 @@ import (
 type Snippet struct {
 	UID     string   `json:"uid,omitempty"`
 	Group   string   `json:"group,omitempty"`
-	Desc    string   `json:"desc"`
+	Name    string   `json:"name"`
 	Content string   `json:"content"`
 	Labels  []string `json:"labels,omitempty"`
 }
@@ -19,11 +19,11 @@ func (s Snippet) String() string {
 }
 
 // New return new Snippet
-func New(u, g, d, c string, l []string) Snippet {
+func New(u, g, n, c string, l []string) Snippet {
 	return Snippet{
 		UID:     u,
 		Group:   g,
-		Desc:    d,
+		Name:    n,
 		Content: c,
 		Labels:  l,
 	}

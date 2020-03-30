@@ -16,7 +16,7 @@ func TestLoadSet(t *testing.T) {
 			in: `---
 snippets:
   -
-    desc: hello world
+    name: hello world
     content: echo hello world
     label:
       - test
@@ -29,7 +29,7 @@ snippets:
 			in: `---
 snippets:
   -
-    desc: hello world
+    name: hello world
     content: echo hello world
     group: my-group
     label:
@@ -43,7 +43,7 @@ snippets:
 			in: `---
 snippets:
   -
-    desc: hello world
+    name: hello world
     content: echo hello world
     uid: 1234-5678-90
     label:

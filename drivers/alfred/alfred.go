@@ -50,7 +50,7 @@ func (a *Alfred) Export(snippets snippet.Snippets, dest string) error {
 		return fmt.Errorf("%s is not directory", dest)
 	}
 	for _, s := range snippets {
-		as := NewSnippet(s.UID, s.Desc, s.Content, strings.Join(s.Labels, " "))
+		as := NewSnippet(s.UID, s.Name, s.Content, strings.Join(s.Labels, " "))
 		if err := os.MkdirAll(filepath.Join(dest, s.Group), 0700); err != nil {
 			return err
 		}
