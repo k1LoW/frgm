@@ -66,6 +66,7 @@ func (f *Frgm) Load(src string) (snippet.Snippets, error) {
 			if err != nil {
 				return err
 			}
+			s.AddLoadPath(path)
 			snippets = append(snippets, s...)
 			return nil
 		},
@@ -88,8 +89,7 @@ func (f *Frgm) LoadSet(in io.Reader, defaultGroup string) (snippet.Snippets, err
 	if !bytes.Contains(buf, []byte("snippets:")) {
 		return snippets, nil
 	}
-	err = yaml.Unmarshal(buf, set)
-	if err != nil {
+	if err := yaml.Unmarshal(buf, set); err != nil {
 		return snippets, err
 	}
 	for _, s := range set.Snippets {

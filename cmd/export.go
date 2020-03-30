@@ -61,7 +61,7 @@ func runExport(args []string) (int, error) {
 
 	switch format {
 	case "alfred":
-		exporter = alfred.New()
+		exporter = alfred.New(config.Get("global.ignore").([]string))
 	default:
 		return 1, fmt.Errorf("unsupported driver '%s'", format)
 	}
