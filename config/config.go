@@ -9,7 +9,7 @@ import (
 
 // avairable config and default
 var configs = map[string]interface{}{
-	"global.snippets_dir": filepath.Join(dataPath(), "snippets"),
+	"global.snippets_path": filepath.Join(dataPath(), "snippets"),
 }
 
 // Load config.toml
