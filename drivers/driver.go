@@ -9,3 +9,14 @@ type Loader interface {
 type Exporter interface {
 	Export(snippets snippet.Snippets, dest string) error
 }
+
+type Exts []string
+
+func (exts Exts) Contains(t string) bool {
+	for _, e := range exts {
+		if e == t {
+			return true
+		}
+	}
+	return false
+}

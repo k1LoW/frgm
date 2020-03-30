@@ -10,10 +10,13 @@ import (
 	"path/filepath"
 
 	"github.com/goccy/go-yaml"
+	"github.com/k1LoW/frgm/drivers"
 	"github.com/k1LoW/frgm/snippet"
 	"github.com/karrick/godirwalk"
 	gitignore "github.com/sabhiram/go-gitignore"
 )
+
+var allowExts = drivers.Exts{".yml", ".yaml"}
 
 type Frgm struct {
 	ignore []string
@@ -54,7 +57,11 @@ func (f *Frgm) Load(src string) (snippet.Snippets, error) {
 				return err
 			}
 			fn := file.Name()
-			group := filepath.Base(fn[:len(fn)-len(filepath.Ext(fn))])
+			ext := filepath.Ext(fn)
+			if !allowExts.Contains(ext) {
+				return nil
+			}
+			group := filepath.Base(fn[:len(fn)-len(ext)])
 			s, err := f.LoadSet(file, group)
 			if err != nil {
 				return err
