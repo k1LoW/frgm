@@ -37,6 +37,9 @@ func Get(k string) interface{} {
 
 // Save config.toml
 func Save() error {
+	if err := os.MkdirAll(configPath(), 0700); err != nil {
+		return err
+	}
 	return viper.WriteConfigAs(filepath.Join(configPath(), "config.toml"))
 }
 
