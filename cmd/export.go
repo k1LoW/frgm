@@ -63,7 +63,7 @@ func runExport(args []string) (int, error) {
 	case "alfred":
 		exporter = alfred.New(config.Get("global.ignore").([]string))
 	default:
-		return 1, fmt.Errorf("unsupported driver '%s'", formatType)
+		return 1, fmt.Errorf("unsupported format '%s'", formatType)
 	}
 
 	snippets, err := loader.Load(srcPath)
