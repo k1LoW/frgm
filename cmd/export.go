@@ -86,7 +86,7 @@ func runExport(args []string) (int, error) {
 func init() {
 	config.Load()
 	rootCmd.AddCommand(exportCmd)
-	exportCmd.Flags().StringVarP(&srcPath, "src", "", config.Get("global.snippets_path").(string), "frgm snippets dir")
+	exportCmd.Flags().StringVarP(&srcPath, "src", "", config.Get("global.snippets_path").(string), "frgm snippets path")
 	exportCmd.Flags().StringVarP(&destPath, "dest", "", "", "export destination")
 	exportCmd.Flags().StringVarP(&formatType, "format", "T", "alfred", "export format of snippet")
 }
