@@ -1,4 +1,4 @@
-package drivers
+package format
 
 import "github.com/k1LoW/frgm/snippet"
 

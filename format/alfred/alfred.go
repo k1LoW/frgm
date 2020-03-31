@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/k1LoW/frgm/drivers"
+	"github.com/k1LoW/frgm/format"
 	"github.com/k1LoW/frgm/snippet"
 	"github.com/karrick/godirwalk"
 	gitignore "github.com/sabhiram/go-gitignore"
@@ -17,7 +17,7 @@ import (
 
 const DefaultDest = "~/Library/Application Support/Alfred/Alfred.alfredpreferences/snippets"
 
-var allowExts = drivers.Exts{".json"}
+var allowExts = format.Exts{".json"}
 
 type Alfred struct {
 	ignore []string

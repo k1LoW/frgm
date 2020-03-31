@@ -26,16 +26,16 @@ import (
 	"os"
 
 	"github.com/k1LoW/frgm/config"
-	"github.com/k1LoW/frgm/drivers"
-	"github.com/k1LoW/frgm/drivers/alfred"
-	"github.com/k1LoW/frgm/drivers/frgm"
+	"github.com/k1LoW/frgm/format"
+	"github.com/k1LoW/frgm/format/alfred"
+	"github.com/k1LoW/frgm/format/frgm"
 	"github.com/spf13/cobra"
 )
 
 var (
-	srcPath  string
-	destPath string
-	format   string
+	srcPath    string
+	destPath   string
+	formatType string
 )
 
 // exportCmd represents the export command
@@ -54,16 +54,16 @@ var exportCmd = &cobra.Command{
 
 func runExport(args []string) (int, error) {
 	var (
-		loader   drivers.Loader
-		exporter drivers.Exporter
+		loader   format.Loader
+		exporter format.Exporter
 	)
 	loader = frgm.New(config.Get("global.ignore").([]string))
 
-	switch format {
+	switch formatType {
 	case "alfred":
 		exporter = alfred.New(config.Get("global.ignore").([]string))
 	default:
-		return 1, fmt.Errorf("unsupported driver '%s'", format)
+		return 1, fmt.Errorf("unsupported driver '%s'", formatType)
 	}
 
 	snippets, err := loader.Load(srcPath)
@@ -88,5 +88,5 @@ func init() {
 	rootCmd.AddCommand(exportCmd)
 	exportCmd.Flags().StringVarP(&srcPath, "src", "", config.Get("global.snippets_path").(string), "frgm snippets dir")
 	exportCmd.Flags().StringVarP(&destPath, "dest", "", "", "export destination")
-	exportCmd.Flags().StringVarP(&format, "format", "T", "alfred", "export format of snippet")
+	exportCmd.Flags().StringVarP(&formatType, "format", "T", "alfred", "export format of snippet")
 }

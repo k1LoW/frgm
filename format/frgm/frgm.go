@@ -10,13 +10,13 @@ import (
 	"path/filepath"
 
 	"github.com/goccy/go-yaml"
-	"github.com/k1LoW/frgm/drivers"
+	"github.com/k1LoW/frgm/format"
 	"github.com/k1LoW/frgm/snippet"
 	"github.com/karrick/godirwalk"
 	gitignore "github.com/sabhiram/go-gitignore"
 )
 
-var allowExts = drivers.Exts{".yml", ".yaml"}
+var allowExts = format.Exts{".yml", ".yaml"}
 
 type Frgm struct {
 	ignore []string
