@@ -61,7 +61,10 @@ frgm completion zsh > $fpath[1]/_frgm
 				_, _ = fmt.Fprintf(os.Stderr, "%s\n", err)
 				os.Exit(1)
 			}
-			defer o.Close()
+			if err := o.Close(); err != nil {
+				_, _ = fmt.Fprintf(os.Stderr, "%s\n", err)
+				os.Exit(1)
+			}
 		}
 
 		switch sh {

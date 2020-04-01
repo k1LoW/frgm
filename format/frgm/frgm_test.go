@@ -62,14 +62,14 @@ snippets:
 		if err != nil {
 			t.Fatal(err)
 		}
-		if want := 1; len(got) != want {
-			t.Errorf("got %v\nwant %v", len(got), want)
+		if want := 1; len(got.Snippets) != want {
+			t.Errorf("got %v\nwant %v", len(got.Snippets), want)
 		}
-		if want := tt.wantGroup; got[0].Group != want {
-			t.Errorf("got %v\nwant %v", got[0].Group, want)
+		if want := tt.wantGroup; got.Snippets[0].Group != want {
+			t.Errorf("got %v\nwant %v", got.Snippets[0].Group, want)
 		}
-		if ok, _ := regexp.MatchString(tt.wantUIDMatch, got[0].UID); !ok {
-			t.Errorf("got %v\nwant match %v", got[0].UID, tt.wantUIDMatch)
+		if ok, _ := regexp.MatchString(tt.wantUIDMatch, got.Snippets[0].UID); !ok {
+			t.Errorf("got %v\nwant match %v", got.Snippets[0].UID, tt.wantUIDMatch)
 		}
 	}
 }
