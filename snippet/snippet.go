@@ -21,8 +21,8 @@ func (s Snippet) String() string {
 }
 
 // New return new Snippet
-func New(u, g, n, c, d string, l []string) Snippet {
-	return Snippet{
+func New(u, g, n, c, d string, l []string) *Snippet {
+	return &Snippet{
 		UID:     u,
 		Group:   g,
 		Name:    n,
@@ -32,7 +32,7 @@ func New(u, g, n, c, d string, l []string) Snippet {
 	}
 }
 
-type Snippets []Snippet
+type Snippets []*Snippet
 
 func (snips Snippets) AddLoadPath(path string) {
 	for i := range snips {
@@ -46,17 +46,17 @@ func (snips Snippets) ClearLoadPath() {
 	}
 }
 
-func (snips Snippets) FindByUID(uid string) (Snippet, error) {
+func (snips Snippets) FindByUID(uid string) (*Snippet, error) {
 	for _, s := range snips {
 		if uid == s.UID {
 			return s, nil
 		}
 	}
-	return Snippet{}, fmt.Errorf("can not find snippet UID:%s", uid)
+	return nil, fmt.Errorf("can not find snippet UID:%s", uid)
 }
 
 func (snips Snippets) Validate() error {
-	uids := map[string]Snippet{}
+	uids := map[string]*Snippet{}
 
 	// check for duplicate
 	for _, s := range snips {
@@ -72,4 +72,5 @@ func (snips Snippets) Validate() error {
 type SnippetSet struct {
 	Group    string   `yaml:"group,omitempty"`
 	Snippets Snippets `yaml:"snippets"`
+	LoadPath string   `json:"-"`
 }

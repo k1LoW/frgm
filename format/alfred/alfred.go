@@ -105,18 +105,16 @@ func (a *Alfred) Load(src string) (snippet.Snippets, error) {
 	return snippets, nil
 }
 
-func (a *Alfred) LoadOne(in io.Reader, group string) (snippet.Snippet, error) {
-	var s snippet.Snippet
+func (a *Alfred) LoadOne(in io.Reader, group string) (*snippet.Snippet, error) {
 	as := &Snippet{}
 	buf, err := ioutil.ReadAll(in)
 	if err != nil {
-		return s, err
+		return nil, err
 	}
 	if err := json.Unmarshal(buf, as); err != nil {
-		return s, err
+		return nil, err
 	}
-	s = snippet.New(as.AlfredSnippet.UID, group, as.AlfredSnippet.Name, as.AlfredSnippet.Snippet, as.AlfredSnippet.Name, strings.Split(as.AlfredSnippet.Keyword, " "))
-	return s, nil
+	return snippet.New(as.AlfredSnippet.UID, group, as.AlfredSnippet.Name, as.AlfredSnippet.Snippet, as.AlfredSnippet.Name, strings.Split(as.AlfredSnippet.Keyword, " ")), nil
 }
 
 func (a *Alfred) Export(snippets snippet.Snippets, dest string) error {

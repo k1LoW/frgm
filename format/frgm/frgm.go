@@ -62,12 +62,12 @@ func (f *Frgm) Load(src string) (snippet.Snippets, error) {
 				return nil
 			}
 			group := filepath.Base(fn[:len(fn)-len(ext)])
-			s, err := f.LoadSet(file, group)
+			set, err := f.LoadSet(file, group)
 			if err != nil {
 				return err
 			}
-			s.AddLoadPath(path)
-			snippets = append(snippets, s...)
+			set.Snippets.AddLoadPath(path)
+			snippets = append(snippets, set.Snippets...)
 			return nil
 		},
 	})
@@ -79,18 +79,67 @@ func (f *Frgm) Load(src string) (snippet.Snippets, error) {
 	return snippets, nil
 }
 
-func (f *Frgm) LoadSet(in io.Reader, defaultGroup string) (snippet.Snippets, error) {
-	snippets := snippet.Snippets{}
+func (f *Frgm) LoadSets(src string) ([]*snippet.SnippetSet, error) {
+	sets := []*snippet.SnippetSet{}
+	if _, err := os.Lstat(src); err != nil {
+		return sets, err
+	}
+	i, err := gitignore.CompileIgnoreLines(f.ignore...)
+	if err != nil {
+		return sets, err
+	}
+
+	err = godirwalk.Walk(src, &godirwalk.Options{
+		FollowSymbolicLinks: true,
+		Callback: func(path string, de *godirwalk.Dirent) error {
+			b, err := de.IsDirOrSymlinkToDir()
+			if err != nil {
+				return err
+			}
+			if b {
+				return nil
+			}
+			if i.MatchesPath(path) {
+				return nil
+			}
+			file, err := os.Open(filepath.Clean(path))
+			if err != nil {
+				return err
+			}
+			fn := file.Name()
+			ext := filepath.Ext(fn)
+			if !allowExts.Contains(ext) {
+				return nil
+			}
+			group := filepath.Base(fn[:len(fn)-len(ext)])
+			set, err := f.LoadSet(file, group)
+			set.LoadPath = path
+			if err != nil {
+				return err
+			}
+			sets = append(sets, set)
+			return nil
+		},
+	})
+
+	if err != nil {
+		return sets, err
+	}
+
+	return sets, nil
+}
+
+func (f *Frgm) LoadSet(in io.Reader, defaultGroup string) (*snippet.SnippetSet, error) {
 	set := &snippet.SnippetSet{}
 	buf, err := ioutil.ReadAll(in)
 	if err != nil {
-		return snippets, err
+		return set, err
 	}
 	if !bytes.Contains(buf, []byte("snippets:")) {
-		return snippets, nil
+		return set, nil
 	}
 	if err := yaml.Unmarshal(buf, set); err != nil {
-		return snippets, err
+		return set, err
 	}
 	for _, s := range set.Snippets {
 		if s.Group == "" {
@@ -103,13 +152,101 @@ func (f *Frgm) LoadSet(in io.Reader, defaultGroup string) (snippet.Snippets, err
 		if s.UID == "" {
 			uid, err := genUID(s.Group, s.Name, s.Content)
 			if err != nil {
-				return snippets, err
+				return set, err
 			}
 			s.UID = uid
 		}
-		snippets = append(snippets, s)
 	}
-	return snippets, nil
+	return set, nil
+}
+
+func (f *Frgm) Export(snippets snippet.Snippets, dest string) error {
+	snippets.ClearLoadPath()
+	sets, err := f.LoadSets(dest)
+	if err != nil {
+		return err
+	}
+L:
+	for _, s := range snippets {
+		// same UID
+		for _, set := range sets {
+			current, err := set.Snippets.FindByUID(s.UID)
+			if err == nil {
+				current.Group = s.Group
+				current.Content = s.Content
+				current.Desc = s.Desc
+				current.Labels = s.Labels
+				continue L
+			}
+		}
+		if s.Group != "" {
+			// same group ( SnippetSet )
+			for _, set := range sets {
+				if set.Group == s.Group {
+					set.Snippets = append(set.Snippets, s)
+					continue L
+				}
+			}
+			// same group ( Snippet )
+			for _, set := range sets {
+				if set.Group != "" {
+					continue
+				}
+				for _, c := range set.Snippets {
+					if c.Group == s.Group {
+						set.Snippets = append(set.Snippets, s)
+						continue L
+					}
+				}
+			}
+		}
+		// none
+		sets[0].Snippets = append(sets[0].Snippets, s)
+	}
+
+	// set path
+	paths := map[string]struct{}{}
+	for _, set := range sets {
+		if set.LoadPath != "" {
+			if _, e := paths[set.LoadPath]; e {
+				return fmt.Errorf("duplicate path: %s", set.LoadPath)
+			}
+		}
+		if set.Group != "" {
+			path := filepath.Join(dest, fmt.Sprintf("%s.yml", set.Group))
+			if _, e := paths[path]; !e {
+				paths[path] = struct{}{}
+				set.LoadPath = path
+				continue
+			}
+		}
+		for {
+			uid, err := genUID("", set.Snippets[0].Desc, set.Snippets[0].Content)
+			if err != nil {
+				return err
+			}
+			path := filepath.Join(dest, fmt.Sprintf("%s.yml", uid))
+			if _, e := paths[path]; !e {
+				set.LoadPath = path
+				break
+			}
+		}
+	}
+
+	// export
+	for _, set := range sets {
+		path := set.LoadPath
+		file, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE, 0600) // #nosec
+		if err != nil {
+			return err
+		}
+		encoder := yaml.NewEncoder(file)
+		if err := encoder.Encode(set); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 func genUID(g, d, c string) (string, error) {
