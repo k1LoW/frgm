@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.0.6](https://github.com/k1LoW/frgm/compare/v0.0.5...v0.0.6) (2020-04-02)
+
+* Change command options [#4](https://github.com/k1LoW/frgm/pull/4) ([k1LoW](https://github.com/k1LoW))
+* Add command `frgm import` [#3](https://github.com/k1LoW/frgm/pull/3) ([k1LoW](https://github.com/k1LoW))
+
 ## [v0.0.5](https://github.com/k1LoW/frgm/compare/v0.0.4...v0.0.5) (2020-04-02)
 
 
