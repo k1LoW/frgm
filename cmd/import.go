@@ -41,6 +41,7 @@ var importCmd = &cobra.Command{
 }
 
 func runImport(args []string) (int, error) {
+	destPath = config.Get("global.snippets_path").(string)
 	var (
 		loader   format.Loader
 		exporter format.Exporter
@@ -73,7 +74,6 @@ func runImport(args []string) (int, error) {
 func init() {
 	config.Load()
 	rootCmd.AddCommand(importCmd)
-	importCmd.Flags().StringVarP(&srcPath, "src", "", "", "import snippets path")
-	importCmd.Flags().StringVarP(&destPath, "dest", "", config.Get("global.snippets_path").(string), "frgm snippets path")
+	importCmd.Flags().StringVarP(&srcPath, "from", "f", "", "import snippets path")
 	importCmd.Flags().StringVarP(&formatType, "format", "T", "alfred", "import snippets format of snippet")
 }
