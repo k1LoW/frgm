@@ -114,7 +114,7 @@ func (a *Alfred) LoadOne(in io.Reader, group string) (*snippet.Snippet, error) {
 	if err := json.Unmarshal(buf, as); err != nil {
 		return nil, err
 	}
-	return snippet.New(as.AlfredSnippet.UID, group, as.AlfredSnippet.Name, as.AlfredSnippet.Snippet, as.AlfredSnippet.Name, strings.Split(as.AlfredSnippet.Keyword, " ")), nil
+	return snippet.New(as.AlfredSnippet.UID, group, as.AlfredSnippet.Name, as.AlfredSnippet.Snippet, "", strings.Split(as.AlfredSnippet.Keyword, " ")), nil
 }
 
 func (a *Alfred) Export(snippets snippet.Snippets, dest string) error {

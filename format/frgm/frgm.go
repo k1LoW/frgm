@@ -172,10 +172,16 @@ L:
 		for _, set := range sets {
 			current, err := set.Snippets.FindByUID(s.UID)
 			if err == nil {
-				current.Group = s.Group
+				if s.Group != "" {
+					current.Group = s.Group
+				}
 				current.Content = s.Content
-				current.Desc = s.Desc
-				current.Labels = s.Labels
+				if s.Desc != "" {
+					current.Desc = s.Desc
+				}
+				if len(s.Labels) > 0 {
+					current.Labels = s.Labels
+				}
 				continue L
 			}
 		}
