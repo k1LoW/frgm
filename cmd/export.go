@@ -53,6 +53,8 @@ var exportCmd = &cobra.Command{
 }
 
 func runExport(args []string) (int, error) {
+	srcPath = config.Get("global.snippets_path").(string)
+
 	var (
 		loader   format.Loader
 		exporter format.Exporter
@@ -86,7 +88,6 @@ func runExport(args []string) (int, error) {
 func init() {
 	config.Load()
 	rootCmd.AddCommand(exportCmd)
-	exportCmd.Flags().StringVarP(&srcPath, "src", "", config.Get("global.snippets_path").(string), "frgm snippets path")
-	exportCmd.Flags().StringVarP(&destPath, "dest", "", "", "export snippets path")
+	exportCmd.Flags().StringVarP(&destPath, "to", "t", "", "export snippets path")
 	exportCmd.Flags().StringVarP(&formatType, "format", "T", "alfred", "export format of snippet")
 }
