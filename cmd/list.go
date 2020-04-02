@@ -49,7 +49,7 @@ func runList(args []string) (int, error) {
 		return 1, err
 	}
 	for _, s := range snippets {
-		r := strings.NewReplacer(":uid", s.UID, ":group", s.Group, ":name", s.Name, ":content", s.Content, ":labels", fmt.Sprintf("%s", s.Labels), ":desc", s.Desc)
+		r := strings.NewReplacer(":uid", s.UID, ":group", s.Group, ":name", s.Name, ":content", s.Content, ":labels", strings.Join(s.Labels, " "), ":desc", s.Desc)
 		fmt.Println(r.Replace(listFormat))
 	}
 	return 0, nil
@@ -57,5 +57,5 @@ func runList(args []string) (int, error) {
 
 func init() {
 	rootCmd.AddCommand(listCmd)
-	listCmd.Flags().StringVarP(&listFormat, "format", "", ":content # :name :labels", "list format")
+	listCmd.Flags().StringVarP(&listFormat, "format", "", ":content # :name [:group :labels]", "list format")
 }
