@@ -72,7 +72,6 @@ func runImport(args []string) (int, error) {
 }
 
 func init() {
-	config.Load()
 	rootCmd.AddCommand(importCmd)
 	importCmd.Flags().StringVarP(&srcPath, "from", "f", "", "import snippets path")
 	importCmd.Flags().StringVarP(&formatType, "format", "T", "alfred", "import snippets format of snippet")
