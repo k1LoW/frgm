@@ -32,12 +32,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var (
-	srcPath    string
-	destPath   string
-	formatType string
-)
-
 // exportCmd represents the export command
 var exportCmd = &cobra.Command{
 	Use:   "export",
