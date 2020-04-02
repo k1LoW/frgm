@@ -166,7 +166,6 @@ func (f *Frgm) Export(snippets snippet.Snippets, dest string) error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%s\n", sets)
 L:
 	for _, s := range snippets {
 		// same UID
@@ -194,7 +193,6 @@ L:
 					continue
 				}
 				for _, c := range set.Snippets {
-					fmt.Printf("%s %s\n", c.Group, s.Group)
 					if c.Group == s.Group {
 						set.Snippets = append(set.Snippets, s)
 						continue L
@@ -239,7 +237,6 @@ L:
 	// export
 	for _, set := range sets {
 		path := set.LoadPath
-		fmt.Printf("path: %s\n", path)
 		file, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE, 0600) // #nosec
 		if err != nil {
 			return err
