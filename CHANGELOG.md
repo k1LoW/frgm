@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.0.8](https://github.com/k1LoW/frgm/compare/v0.0.7...v0.0.8) (2020-04-03)
+
+* Fix: lstat : no such file or directory [#6](https://github.com/k1LoW/frgm/pull/6) ([k1LoW](https://github.com/k1LoW))
+
 ## [v0.0.7](https://github.com/k1LoW/frgm/compare/v0.0.6...v0.0.7) (2020-04-03)
 
 * Add command `frgm list` [#5](https://github.com/k1LoW/frgm/pull/5) ([k1LoW](https://github.com/k1LoW))
