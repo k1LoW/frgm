@@ -4,7 +4,7 @@
 
 ## frgm export
 
-### Export snippets as Alfred snippets
+### Export snippets as [Alfred](https://www.alfredapp.com/) snippets
 
 ``` console
 $ frgm export --to ~/Library/Application Support/Alfred/Alfred.alfredpreferences/snippets --format alfred
@@ -12,7 +12,7 @@ $ frgm export --to ~/Library/Application Support/Alfred/Alfred.alfredpreferences
 
 ## frgm import
 
-### Import Alfred snippets
+### Import [Alfred](https://www.alfredapp.com/) snippets
 
 ``` console
 $ frgm import --from ~/Library/Application Support/Alfred/Alfred.alfredpreferences/snippets --format alfred
@@ -24,7 +24,7 @@ $ frgm import --from ~/Library/Application Support/Alfred/Alfred.alfredpreferenc
 $ frgm list
 ```
 
-### zsh auto-complete from snippets using peco (Ctrl+j)
+### zsh auto-complete from snippets using [peco](https://github.com/peco/peco) (Ctrl+j)
 
 ``` zsh
 if exists frgm; then
@@ -38,7 +38,7 @@ if exists frgm; then
 fi
 ```
 
-### zsh auto-complete from history and snippets using peco (Ctrl+r)
+### zsh auto-complete from history and snippets using [peco](https://github.com/peco/peco) (Ctrl+r)
 
 ``` zsh
 if exists peco; then
