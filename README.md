@@ -27,33 +27,23 @@ $ frgm list
 ### zsh auto-complete from snippets using [peco](https://github.com/peco/peco) (Ctrl+j)
 
 ``` zsh
-if exists frgm; then
-    function peco-frgm() {
-        BUFFER=$(frgm list | peco --query "$LBUFFER")
-        CURSOR=$#BUFFER
-        zle clear-screen
-    }
-    zle -N peco-frgm
-    bindkey '^j' peco-frgm
-fi
+function peco-select-snippets() {
+    BUFFER=$(frgm list | peco --query "$LBUFFER")
+    CURSOR=$#BUFFER
+    zle clear-screen
+}
+zle -N peco-select-snippets
+bindkey '^j' peco-select-snippets
 ```
 
 ### zsh auto-complete from history and snippets using [peco](https://github.com/peco/peco) (Ctrl+r)
 
 ``` zsh
-if exists peco; then
-    function peco-select-history() {
-        if exists frgm; then
-            BUFFER=$((history -r -n 1 & frgm list) | \
-                         peco --query "$LBUFFER")
-        else
-            BUFFER=$(history -r -n 1 | \
-                         peco --query "$LBUFFER")
-        fi
-        CURSOR=$#BUFFER
-        zle clear-screen
-    }
-    zle -N peco-select-history
-    bindkey '^R' peco-select-history
-fi
+function peco-select-history-and-snippets() {
+    BUFFER=$((history -r -n 1 & frgm list) | peco --query "$LBUFFER")
+    CURSOR=$#BUFFER
+    zle clear-screen
+}
+zle -N peco-select-history-and-snippets
+bindkey '^R' peco-select-history-and-snippets
 ```
