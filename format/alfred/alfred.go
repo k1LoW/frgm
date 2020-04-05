@@ -136,7 +136,7 @@ func (a *Alfred) Export(snippets snippet.Snippets, dest string) error {
 		if err := os.MkdirAll(filepath.Dir(path), 0700); err != nil {
 			return err
 		}
-		file, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0600) // #nosec
+		file, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0600)
 		if err != nil {
 			return err
 		}
