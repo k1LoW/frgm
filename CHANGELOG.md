@@ -1,5 +1,16 @@
 # Changelog
 
+## [v0.1.0](https://github.com/k1LoW/frgm/compare/d6c896ee8ad7...v0.1.0) (2020-04-06)
+
+* Add export format `md` [#8](https://github.com/k1LoW/frgm/pull/8) ([k1LoW](https://github.com/k1LoW))
+* Add command `frgm init` [#7](https://github.com/k1LoW/frgm/pull/7) ([k1LoW](https://github.com/k1LoW))
+* Fix: lstat : no such file or directory [#6](https://github.com/k1LoW/frgm/pull/6) ([k1LoW](https://github.com/k1LoW))
+* Add command `frgm list` [#5](https://github.com/k1LoW/frgm/pull/5) ([k1LoW](https://github.com/k1LoW))
+* Change command options [#4](https://github.com/k1LoW/frgm/pull/4) ([k1LoW](https://github.com/k1LoW))
+* Add command `frgm import` [#3](https://github.com/k1LoW/frgm/pull/3) ([k1LoW](https://github.com/k1LoW))
+* Fix file close bug [#2](https://github.com/k1LoW/frgm/pull/2) ([k1LoW](https://github.com/k1LoW))
+* Add command `frgm fill` [#1](https://github.com/k1LoW/frgm/pull/1) ([k1LoW](https://github.com/k1LoW))
+
 ## [v0.0.8](https://github.com/k1LoW/frgm/compare/v0.0.7...v0.0.8) (2020-04-03)
 
 * Fix: lstat : no such file or directory [#6](https://github.com/k1LoW/frgm/pull/6) ([k1LoW](https://github.com/k1LoW))
