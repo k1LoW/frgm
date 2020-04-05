@@ -16,7 +16,7 @@ import (
 	gitignore "github.com/sabhiram/go-gitignore"
 )
 
-var allowExts = format.Exts{".yml", ".yaml"}
+var AllowExts = format.Exts{".yml", ".yaml"}
 
 type Frgm struct {
 	ignore []string
@@ -58,7 +58,7 @@ func (f *Frgm) Load(src string) (snippet.Snippets, error) {
 			}
 			fn := file.Name()
 			ext := filepath.Ext(fn)
-			if !allowExts.Contains(ext) {
+			if !AllowExts.Contains(ext) {
 				return nil
 			}
 			group := filepath.Base(fn[:len(fn)-len(ext)])
@@ -108,7 +108,7 @@ func (f *Frgm) LoadSets(src string) ([]*snippet.SnippetSet, error) {
 			}
 			fn := file.Name()
 			ext := filepath.Ext(fn)
-			if !allowExts.Contains(ext) {
+			if !AllowExts.Contains(ext) {
 				return nil
 			}
 			group := filepath.Base(fn[:len(fn)-len(ext)])

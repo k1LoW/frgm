@@ -23,10 +23,13 @@ package cmd
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
+	"path/filepath"
 
 	"github.com/Songmu/prompter"
 	"github.com/k1LoW/frgm/config"
+	"github.com/k1LoW/frgm/format/frgm"
 	"github.com/spf13/cobra"
 )
 
@@ -46,10 +49,31 @@ var initCmd = &cobra.Command{
 
 func runInit(args []string) (int, error) {
 	path := config.GetString("global.snippets_path")
-	path = prompter.Prompt("Enter snippet path (dir or file) [global.snippets_path]", path)
+	path = prompter.Prompt("Enter snippet path (dir or .yml file) [global.snippets_path]", path)
 	if err := config.Set("global.snippets_path", path); err != nil {
 		return 1, err
 	}
+	_, err := os.Stat(path)
+	if err != nil {
+		ext := filepath.Ext(path)
+		if frgm.AllowExts.Contains(ext) {
+			if yn := prompter.YN(fmt.Sprintf("Create new snippet file (%s) ?", path), true); yn {
+				if err := os.MkdirAll(filepath.Dir(path), 0700); err != nil {
+					return 1, err
+				}
+				if err := ioutil.WriteFile(path, []byte("---\nsnippets:\n"), 0600); err != nil {
+					return 1, err
+				}
+			}
+		} else {
+			if yn := prompter.YN(fmt.Sprintf("Create snippets directory (%s)?", path), true); yn {
+				if err := os.MkdirAll(path, 0700); err != nil {
+					return 1, err
+				}
+			}
+		}
+	}
+
 	if err := config.Save(); err != nil {
 		return 1, err
 	}
