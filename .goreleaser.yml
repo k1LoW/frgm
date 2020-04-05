@@ -7,6 +7,9 @@ before:
 builds:
 -
   id: frgm-linux
+  hooks:
+    pre: packr2
+    post: packr2 clean
   env:
     - CGO_ENABLED=0
   goos:
@@ -15,6 +18,9 @@ builds:
     - -s -w -X github.com/k1LoW/frgm.version={{.Version}} -X github.com/k1LoW/frgm.commit={{.FullCommit}} -X github.com/k1LoW/frgm.date={{.Date}} -X github.com/k1LoW/frgm/version.Version={{.Version}}
 -
   id: frgm-darwin
+  hooks:
+    pre: packr2
+    post: packr2 clean
   env:
     - CGO_ENABLED=0
   goos:

@@ -22,9 +22,12 @@ sec:
 	gosec ./...
 
 build:
+	packr2
 	go build -ldflags="$(BUILD_LDFLAGS)"
+	packr2 clean
 
 depsdev:
+	go get github.com/gobuffalo/packr/v2/packr2
 	go get github.com/Songmu/ghch/cmd/ghch
 	go get github.com/Songmu/gocredits/cmd/gocredits
 	go get github.com/securego/gosec/cmd/gosec

@@ -50,7 +50,7 @@ func runEdit(args []string) (int, error) {
 		return 1, err
 	}
 	defer tty.Close()
-	c := exec.Command(e, config.Get("global.snippets_path").(string)) // #nosec
+	c := exec.Command(e, config.GetString("global.snippets_path")) // #nosec
 	c.Stdin = tty.Input()
 	c.Stdout = tty.Output()
 	c.Stderr = tty.Output()

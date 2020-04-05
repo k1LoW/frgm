@@ -4,6 +4,7 @@ go 1.13
 
 require (
 	github.com/Songmu/prompter v0.3.0
+	github.com/gobuffalo/packr/v2 v2.8.0
 	github.com/goccy/go-yaml v1.4.3
 	github.com/karrick/godirwalk v1.15.5
 	github.com/mattn/go-tty v0.0.3

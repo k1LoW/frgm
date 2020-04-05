@@ -25,7 +25,7 @@ func Load() {
 }
 
 // Set value to config
-func Set(k, v string) error {
+func Set(k string, v interface{}) error {
 	viper.Set(k, v)
 	return nil
 }
@@ -33,6 +33,16 @@ func Set(k, v string) error {
 // Get value from config
 func Get(k string) interface{} {
 	return viper.Get(k)
+}
+
+// GetString value from config
+func GetString(k string) string {
+	return viper.GetString(k)
+}
+
+// GetStringSlice value from config
+func GetStringSlice(k string) []string {
+	return viper.GetStringSlice(k)
 }
 
 // Save config.toml

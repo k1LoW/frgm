@@ -29,6 +29,7 @@ import (
 	"github.com/k1LoW/frgm/format"
 	"github.com/k1LoW/frgm/format/alfred"
 	"github.com/k1LoW/frgm/format/frgm"
+	"github.com/k1LoW/frgm/format/md"
 	"github.com/spf13/cobra"
 )
 
@@ -47,17 +48,19 @@ var exportCmd = &cobra.Command{
 }
 
 func runExport(args []string) (int, error) {
-	srcPath = config.Get("global.snippets_path").(string)
+	srcPath = config.GetString("global.snippets_path")
 
 	var (
 		loader   format.Loader
 		exporter format.Exporter
 	)
-	loader = frgm.New(config.Get("global.ignore").([]string))
+	loader = frgm.New(config.GetStringSlice("global.ignore"))
 
 	switch formatType {
 	case "alfred":
-		exporter = alfred.New(config.Get("global.ignore").([]string))
+		exporter = alfred.New(config.GetStringSlice("global.ignore"))
+	case "md":
+		exporter = md.New(config.GetStringSlice("global.ignore"))
 	default:
 		return 1, fmt.Errorf("unsupported format '%s'", formatType)
 	}
