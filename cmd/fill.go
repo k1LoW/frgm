@@ -39,8 +39,8 @@ var fillCmd = &cobra.Command{
 }
 
 func runFill(args []string) (int, error) {
-	srcPath = config.Get("global.snippets_path").(string)
-	exporter := frgm.New(config.Get("global.ignore").([]string))
+	srcPath = config.GetString("global.snippets_path")
+	exporter := frgm.New(config.GetStringSlice("global.ignore"))
 	snippets, err := exporter.Load(srcPath)
 	if err != nil {
 		return 1, err

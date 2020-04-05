@@ -41,18 +41,18 @@ var importCmd = &cobra.Command{
 }
 
 func runImport(args []string) (int, error) {
-	destPath = config.Get("global.snippets_path").(string)
+	destPath = config.GetString("global.snippets_path")
 	var (
 		loader   format.Loader
 		exporter format.Exporter
 	)
 	switch formatType {
 	case "alfred":
-		loader = alfred.New(config.Get("global.ignore").([]string))
+		loader = alfred.New(config.GetStringSlice("global.ignore"))
 	default:
 		return 1, fmt.Errorf("unsupported format '%s'", formatType)
 	}
-	exporter = frgm.New(config.Get("global.ignore").([]string))
+	exporter = frgm.New(config.GetStringSlice("global.ignore"))
 
 	snippets, err := loader.Load(srcPath)
 	if err != nil {

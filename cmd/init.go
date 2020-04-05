@@ -45,7 +45,7 @@ var initCmd = &cobra.Command{
 }
 
 func runInit(args []string) (int, error) {
-	path := config.Get("global.snippets_path").(string)
+	path := config.GetString("global.snippets_path")
 	path = prompter.Prompt("Enter snippet path (dir or file) [global.snippets_path]", path)
 	if err := config.Set("global.snippets_path", path); err != nil {
 		return 1, err

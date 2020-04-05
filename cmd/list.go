@@ -42,8 +42,8 @@ var listCmd = &cobra.Command{
 }
 
 func runList(args []string) (int, error) {
-	srcPath = config.Get("global.snippets_path").(string)
-	loader := frgm.New(config.Get("global.ignore").([]string))
+	srcPath = config.GetString("global.snippets_path")
+	loader := frgm.New(config.GetStringSlice("global.ignore"))
 	snippets, err := loader.Load(srcPath)
 	if err != nil {
 		return 1, err
