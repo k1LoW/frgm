@@ -10,6 +10,12 @@
 $ frgm export --to ~/Library/Application Support/Alfred/Alfred.alfredpreferences/snippets --format alfred
 ```
 
+### Export snippets as Markdown document.
+
+``` console
+$ frgm export --to /path/to/snippets.md --format md
+```
+
 ## frgm import
 
 ### Import [Alfred](https://www.alfredapp.com/) snippets
