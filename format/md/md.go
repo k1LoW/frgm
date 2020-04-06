@@ -2,10 +2,10 @@ package md
 
 import (
 	"fmt"
-	"html/template"
 	"io"
 	"os"
 	"path/filepath"
+	"text/template"
 
 	"github.com/gobuffalo/packr/v2"
 	"github.com/k1LoW/frgm/format"
