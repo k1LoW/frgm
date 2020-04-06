@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.1.1](https://github.com/k1LoW/frgm/compare/v0.1.0...v0.1.1) (2020-04-06)
+
+* Fix template package (html -> text) [#9](https://github.com/k1LoW/frgm/pull/9) ([k1LoW](https://github.com/k1LoW))
+
 ## [v0.1.0](https://github.com/k1LoW/frgm/compare/d6c896ee8ad7...v0.1.0) (2020-04-06)
 
 * Add export format `md` [#8](https://github.com/k1LoW/frgm/pull/8) ([k1LoW](https://github.com/k1LoW))
