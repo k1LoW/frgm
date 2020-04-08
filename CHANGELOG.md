@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.1.3](https://github.com/k1LoW/frgm/compare/v0.1.2...v0.1.3) (2020-04-08)
+
+
 ## [v0.1.2](https://github.com/k1LoW/frgm/compare/v0.1.1...v0.1.2) (2020-04-08)
 
 
