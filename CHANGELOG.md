@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.1.2](https://github.com/k1LoW/frgm/compare/v0.1.1...v0.1.2) (2020-04-08)
+
+
 ## [v0.1.1](https://github.com/k1LoW/frgm/compare/v0.1.0...v0.1.1) (2020-04-06)
 
 * Fix template package (html -> text) [#9](https://github.com/k1LoW/frgm/pull/9) ([k1LoW](https://github.com/k1LoW))
