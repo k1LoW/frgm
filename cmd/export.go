@@ -63,6 +63,10 @@ func runExport(args []string) (int, error) {
 		return 1, fmt.Errorf("unsupported format '%s'", formatType)
 	}
 
+	if srcPath == "" {
+		srcPath = config.GetString("global.snippets_path")
+	}
+
 	snippets, err := loader.Load(srcPath)
 	if err != nil {
 		return 1, err
