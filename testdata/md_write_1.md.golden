@@ -12,14 +12,14 @@
 
 desc a-1
 
-``` console
-$ echo a-1
+```
+echo a-1
 ```
 
 ### <a name="uid-a-2"></a>a-2
 
-``` console
-$ echo a-2
+```
+echo a-2
 ```
 
 ## group-b
@@ -29,8 +29,8 @@ $ echo a-2
 desc b-1
 desc b-1
 
-``` console
-$ echo b-1
+```
+echo b-1
 ```
 
 ---
