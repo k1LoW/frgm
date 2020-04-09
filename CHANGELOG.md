@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.2.0](https://github.com/k1LoW/frgm/compare/v0.1.3...v0.2.0) (2020-04-09)
+
+* Display labels on markdown document. [#10](https://github.com/k1LoW/frgm/pull/10) ([k1LoW](https://github.com/k1LoW))
+
 ## [v0.1.3](https://github.com/k1LoW/frgm/compare/v0.1.2...v0.1.3) (2020-04-08)
 
 
