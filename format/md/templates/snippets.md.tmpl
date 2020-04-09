@@ -8,7 +8,12 @@
 {{ range $set := .Sets -}}
 ## {{ $set.Group }}
 {{ range $s := $set.Snippets }}
-### <a name="{{ $s.UID }}"></a>{{ $s.Name }}{{ if ne $s.Desc "" }}
+### <a name="{{ $s.UID }}"></a>{{ $s.Name }}{{- if ne (len $s.Labels) 0 }}
+
+{{ $s.Labels | label_join }}
+
+{{- end }}
+{{- if ne $s.Desc "" }}
 
 {{ $s.Desc }}{{ end }}
 

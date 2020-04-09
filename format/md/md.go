@@ -70,7 +70,7 @@ func (m *Md) Write(wr io.Writer, sets []*snippet.SnippetSet) error {
 	if err != nil {
 		return err
 	}
-	tmpl := template.Must(template.New("snippets").Parse(ts))
+	tmpl := template.Must(template.New("snippets").Funcs(format.Funcs()).Parse(ts))
 	tmplData := map[string]interface{}{
 		"Sets": sets,
 	}

@@ -1,6 +1,12 @@
 package format
 
-import "github.com/k1LoW/frgm/snippet"
+import (
+	"fmt"
+	"strings"
+	"text/template"
+
+	"github.com/k1LoW/frgm/snippet"
+)
 
 type Loader interface {
 	Load(src string) (snippet.Snippets, error)
@@ -19,4 +25,12 @@ func (exts Exts) Contains(t string) bool {
 		}
 	}
 	return false
+}
+
+func Funcs() map[string]interface{} {
+	return template.FuncMap{
+		"label_join": func(l []string) string {
+			return fmt.Sprintf("`%s`", strings.Join(l, "` `"))
+		},
+	}
 }
