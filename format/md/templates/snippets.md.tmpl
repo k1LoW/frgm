@@ -10,7 +10,7 @@
 {{ range $s := $set.Snippets }}
 ### <a name="{{ $s.UID }}"></a>{{ $s.Name }}{{- if ne (len $s.Labels) 0 }}
 
-{{ $s.Labels | label_join }}
+**labels:** {{ $s.Labels | label_join }}
 
 {{- end }}
 {{- if ne $s.Desc "" }}

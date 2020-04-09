@@ -10,7 +10,7 @@
 
 ### <a name="uid-a-1"></a>a-1
 
-`label-a` `label:1`
+**labels:** `label-a` `label:1`
 
 desc a-1
 
@@ -20,7 +20,7 @@ echo a-1
 
 ### <a name="uid-a-2"></a>a-2
 
-`label-a` `label:2`
+**labels:** `label-a` `label:2`
 
 ```
 echo a-2
