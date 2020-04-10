@@ -113,10 +113,13 @@ func (f *Frgm) LoadSets(src string) ([]*snippet.SnippetSet, error) {
 			}
 			group := filepath.Base(fn[:len(fn)-len(ext)])
 			set, err := f.LoadSet(file, group)
-			set.LoadPath = path
 			if err != nil {
 				return err
 			}
+			if len(set.Snippets) == 0 {
+				return nil
+			}
+			set.LoadPath = path
 			sets = append(sets, set)
 			return nil
 		},
