@@ -30,6 +30,7 @@ import (
 	"github.com/k1LoW/frgm/format/alfred"
 	"github.com/k1LoW/frgm/format/frgm"
 	"github.com/k1LoW/frgm/format/md"
+	"github.com/k1LoW/frgm/format/pet"
 	"github.com/spf13/cobra"
 )
 
@@ -57,6 +58,8 @@ func runExport(args []string) (int, error) {
 	switch formatType {
 	case "alfred":
 		exporter = alfred.New(config.GetStringSlice("global.ignore"))
+	case "pet":
+		exporter = pet.New()
 	case "md":
 		exporter = md.New(config.GetStringSlice("global.ignore"))
 	default:
