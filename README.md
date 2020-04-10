@@ -23,6 +23,12 @@ $ frgm init
 $ frgm export --to ~/Library/Application Support/Alfred/Alfred.alfredpreferences/snippets --format alfred
 ```
 
+#### Export snippets as [pet](https://github.com/knqyf263/pet) snippets
+
+``` console
+$ frgm export --to /path/to/pet.toml --format pet
+```
+
 #### Export snippets as Markdown document.
 
 ``` console
