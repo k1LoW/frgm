@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.3.0](https://github.com/k1LoW/frgm/compare/v0.2.1...v0.3.0) (2020-04-12)
+
+* Display output: on markdown document. [#13](https://github.com/k1LoW/frgm/pull/13) ([k1LoW](https://github.com/k1LoW))
+* Support pet [#12](https://github.com/k1LoW/frgm/pull/12) ([k1LoW](https://github.com/k1LoW))
+* Fix: write to non-snippet YAML files [#11](https://github.com/k1LoW/frgm/pull/11) ([k1LoW](https://github.com/k1LoW))
+
 ## [v0.2.1](https://github.com/k1LoW/frgm/compare/v0.2.0...v0.2.1) (2020-04-09)
 
 
