@@ -4,7 +4,7 @@
 
 ## Usage
 
-### frgm init
+### Initialize frgm ( `frgm init` )
 
 Initialize frgm.
 
@@ -15,7 +15,49 @@ Initialize frgm.
 $ frgm init
 ```
 
-### frgm export
+### Write snippets ( `frgm edit` )
+
+Write snippets.
+
+The format of the frgm snippet is the following,
+
+``` yaml
+---
+# Default group name of snippets
+# Default is snippets file name
+group: my-group
+snippets:
+  # UID of snippet
+  # Default is automatically generated
+- uid: frgm-1ca779b751a5
+  # Group name of snippet
+  # Default is default group name of snippets
+  group: command
+  # Name of snippet
+  name: Delete branch already merged
+  # Content (command) of snippet
+  content: git branch --merged | grep -v master | xargs git branch -d
+  # Description of snippet
+  desc: |
+    1. lists the merged branches
+    2. delete all merged branches except the master branch
+    ref: https://example.com/path/to/link
+  # Labels
+  labels:
+  - git
+  - cleanup
+- name: ping
+  content: ping 8.8.8.8
+[...]
+```
+
+You can use the `frgm edit` command to edit snippets of `global.snippets_path` using the editor specified in $EDITOR.
+
+``` console
+$ EDITOR=emacs frgm edit
+```
+
+### Export frgm snippets as * snippets ( `frgm export` )
 
 #### Export snippets as [Alfred](https://www.alfredapp.com/) snippets
 
@@ -35,7 +77,7 @@ $ frgm export --to /path/to/pet.toml --format pet
 $ frgm export --to /path/to/snippets.md --format md
 ```
 
-### frgm import
+### Import * snippets ( `frgm import` )
 
 #### Import [Alfred](https://www.alfredapp.com/) snippets
 
@@ -43,7 +85,7 @@ $ frgm export --to /path/to/snippets.md --format md
 $ frgm import --from ~/Library/Application Support/Alfred/Alfred.alfredpreferences/snippets --format alfred
 ```
 
-### frgm list
+### Use frgm snippets ( `frgm list` )
 
 ``` console
 $ frgm list
