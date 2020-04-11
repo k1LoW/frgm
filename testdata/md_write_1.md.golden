@@ -18,6 +18,11 @@ desc a-1
 echo a-1
 ```
 
+**output:**
+```
+out a-1
+```
+
 ### <a name="uid-a-2"></a>a-2
 
 **labels:** `label-a` `label:2`
