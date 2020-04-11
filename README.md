@@ -77,6 +77,18 @@ $ frgm export --to /path/to/pet.toml --format pet
 $ frgm export --to /path/to/snippets.md --format md
 ```
 
+**Key Mapping:**
+
+| frgm snippet key | [Alfred](https://www.alfredapp.com/) | [pet](https://github.com/knqyf263/pet) |
+| --- | --- | --- |
+| `uid:` | `uid` | - |
+| `group:` | directory | - |
+| `name:` | `name` | `description:` |
+| `desc:` | - | - |
+| `content` | `snippet` | `command:` |
+| `output` | - | `output:` |
+| `labels` | `keyword` | `tag:` |
+
 ### Import * snippets ( `frgm import` )
 
 #### Import [Alfred](https://www.alfredapp.com/) snippets
