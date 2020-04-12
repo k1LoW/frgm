@@ -89,6 +89,34 @@ $ frgm export --to /path/to/snippets.md --format md
 | `output:` | | - | `output:` |
 | `labels:` | | `keyword` | `tag:` |
 
+#### Fill uid, group ( `frgm fill` )
+
+Fill and freeze `uid:` and `group:`.
+
+``` console
+$ frgm fill
+```
+
+**before:**
+
+``` yaml
+# my-group.yml
+snippets:
+- name: ping
+  content: ping 8.8.8.8
+```
+
+**after:**
+
+``` yaml
+# my-group.yml
+snippets:
+- uid: frgm-6aa9d75f9d83
+  group: my-group
+  name: ping
+  content: ping 8.8.8.8
+```
+
 ### Import * snippets ( `frgm import` )
 
 #### Import [Alfred](https://www.alfredapp.com/) snippets

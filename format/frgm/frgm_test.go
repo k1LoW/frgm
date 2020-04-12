@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"regexp"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
 )
 
 func TestLoadSet(t *testing.T) {
@@ -18,7 +20,7 @@ snippets:
   -
     name: hello world
     content: echo hello world
-    label:
+    labels:
       - test
       - echo
 `,
@@ -32,7 +34,7 @@ snippets:
     name: hello world
     content: echo hello world
     group: my-group
-    label:
+    labels:
       - test
       - echo
 `,
@@ -46,7 +48,7 @@ snippets:
     name: hello world
     content: echo hello world
     uid: 1234-5678-90
-    label:
+    labels:
       - test
       - echo
 `,
@@ -70,6 +72,69 @@ snippets:
 		}
 		if ok, _ := regexp.MatchString(tt.wantUIDMatch, got.Snippets[0].UID); !ok {
 			t.Errorf("got %v\nwant match %v", got.Snippets[0].UID, tt.wantUIDMatch)
+		}
+	}
+}
+
+func TestFill(t *testing.T) {
+	tests := []struct {
+		in    string
+		group string
+		want  string
+	}{
+		{
+			in: `---
+snippets:
+  -
+    name: hello world
+    content: echo hello world
+`,
+			group: "my-group",
+			want: `---
+snippets:
+  -
+    uid: frgm-de1fbe2f7573
+    group: my-group
+    name: hello world
+    content: echo hello world
+`,
+		},
+		{
+			in: `---
+snippets:
+  -
+    name: hello world
+    content: echo hello world
+    group: other-group
+`,
+			group: "my-group",
+			want: `---
+snippets:
+  -
+    uid: frgm-526b6b7787e4
+    group: other-group
+    name: hello world
+    content: echo hello world
+`,
+		},
+	}
+
+	for _, tt := range tests {
+		frgm := New([]string{})
+		in := bytes.NewBufferString(tt.in)
+		got, err := frgm.LoadSet(in, tt.group)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		out := bytes.NewBufferString(tt.want)
+		want, err := frgm.LoadSet(out, tt.group)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if diff := cmp.Diff(got, want, nil); diff != "" {
+			t.Errorf("got %v\nwant %v", got, want)
 		}
 	}
 }
