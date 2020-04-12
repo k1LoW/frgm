@@ -27,7 +27,7 @@ The format of the frgm snippet is the following,
 # Default is snippets file name
 group: my-group
 snippets:
-  # UID of snippet
+  # Unique identifier of snippet
   # Default is automatically generated
 - uid: frgm-1ca779b751a5
   # Group name of snippet
