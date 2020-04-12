@@ -79,15 +79,15 @@ $ frgm export --to /path/to/snippets.md --format md
 
 **Key Mapping:**
 
-| frgm snippet key | [Alfred](https://www.alfredapp.com/) | [pet](https://github.com/knqyf263/pet) |
-| --- | --- | --- |
-| `uid:` | `uid` | - |
-| `group:` | directory | - |
-| `name:` ( required ) | `name` | `description:` |
-| `desc:` | - | - |
-| `content:` ( required ) | `snippet` | `command:` |
-| `output:` | - | `output:` |
-| `labels:` | `keyword` | `tag:` |
+| frgm snippet key | Default / Required | [Alfred](https://www.alfredapp.com/) | [pet](https://github.com/knqyf263/pet) |
+| --- | --- | --- | --- |
+| `uid:` | Default is automatically generated | `uid` | - |
+| `group:` | Default is default group name of snippets or file name | directory | - |
+| `name:` | required | `name` | `description:` |
+| `desc:` | | - | - |
+| `content:` | required | `snippet` | `command:` |
+| `output:` | | - | `output:` |
+| `labels:` | | `keyword` | `tag:` |
 
 ### Import * snippets ( `frgm import` )
 
