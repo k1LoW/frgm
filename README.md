@@ -83,11 +83,11 @@ $ frgm export --to /path/to/snippets.md --format md
 | --- | --- | --- |
 | `uid:` | `uid` | - |
 | `group:` | directory | - |
-| `name:` | `name` | `description:` |
+| `name:` ( required ) | `name` | `description:` |
 | `desc:` | - | - |
-| `content` | `snippet` | `command:` |
-| `output` | - | `output:` |
-| `labels` | `keyword` | `tag:` |
+| `content:` ( required ) | `snippet` | `command:` |
+| `output:` | - | `output:` |
+| `labels:` | `keyword` | `tag:` |
 
 ### Import * snippets ( `frgm import` )
 
