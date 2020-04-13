@@ -2,6 +2,12 @@
 
 `frgm` is a meta snippet (fragment) manager.
 
+Key features of `frgm` are:
+
+- **[Can export snippets as other snippet tool format](#export-frgm-snippets-as--snippets--frgm-export-)**.
+- **[Can document snippets](#export-snippets-as-markdown-document)**.
+- **[Can use as snippets using peco or fzf and more](##use-frgm-snippets--frgm-list-)**.
+
 ## Usage
 
 ### Initialize frgm ( `frgm init` )
