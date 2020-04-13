@@ -38,8 +38,8 @@ var (
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "frgm",
-	Short: "frgm is a command snippets (fragments) manager",
-	Long:  `frgm is a command snippets (fragments) manager.`,
+	Short: "frgm is a meta snippet (fragment) manager",
+	Long:  `frgm is a meta snippet (fragment) manager.`,
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

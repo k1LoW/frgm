@@ -54,7 +54,7 @@ brews:
     name: k1LoW
     email: k1lowxb@gmail.com
   homepage: https://github.com/k1LoW/frgm
-  description: frgm is a command snippets (fragments) manager.
+  description: frgm is a meta snippet (fragment) manager.
   install: |
     system './frgm', 'completion', 'bash', '--out', 'frgm.bash'
     system './frgm', 'completion', 'zsh', '--out', 'frgm.zsh'
@@ -69,7 +69,7 @@ nfpms:
     - frgm-linux
     homepage: https://github.com/k1LoW/frgm
     maintainer: Ken'ichiro Oyama <k1lowxb@gmail.com>
-    description: frgm is a command snippets (fragments) manager.
+    description: frgm is a meta snippet (fragment) manager.
     license: MIT
     formats:
       - deb
