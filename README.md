@@ -4,9 +4,9 @@
 
 Key features of `frgm` are:
 
-- **[Can export snippets as other snippet tool format](#export-frgm-snippets-as--snippets--frgm-export-)**.
+- **[Can export snippets in other snippet tool format](#export-frgm-snippets-as--snippets--frgm-export-)**.
 - **[Can document snippets](#export-snippets-as-markdown-document)**.
-- **[Can use as snippets using peco or fzf and more](##use-frgm-snippets--frgm-list-)**.
+- **[Can use as command-line snippets](##use-frgm-snippets--frgm-list-)**.
 
 ## Usage
 
