@@ -1,6 +1,7 @@
 package alfred
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -88,12 +89,12 @@ func (a *Alfred) Load(src string) (snippet.Snippets, error) {
 				return nil
 			}
 			group := filepath.Base(filepath.Dir(path))
-			s, err := a.LoadOne(file, group)
+			s, err := a.Decode(file, group)
 			if err != nil {
 				return err
 			}
-			s.LoadPath = path
-			snippets = append(snippets, s)
+			s.AddLoadPath(path)
+			snippets = append(snippets, s...)
 			return nil
 		},
 	})
@@ -105,16 +106,21 @@ func (a *Alfred) Load(src string) (snippet.Snippets, error) {
 	return snippets, nil
 }
 
-func (a *Alfred) LoadOne(in io.Reader, group string) (*snippet.Snippet, error) {
-	as := &Snippet{}
+func (a *Alfred) Decode(in io.Reader, group string) (snippet.Snippets, error) {
+	snippets := snippet.Snippets{}
 	buf, err := ioutil.ReadAll(in)
 	if err != nil {
-		return nil, err
+		return snippets, err
 	}
+	if !bytes.Contains(buf, []byte("{")) {
+		return snippets, nil
+	}
+	as := &Snippet{}
 	if err := json.Unmarshal(buf, as); err != nil {
-		return nil, err
+		return snippets, err
 	}
-	return snippet.New(as.AlfredSnippet.UID, group, as.AlfredSnippet.Name, as.AlfredSnippet.Snippet, "", "", strings.Split(as.AlfredSnippet.Keyword, " ")), nil
+	snippets = append(snippets, snippet.New(as.AlfredSnippet.UID, group, as.AlfredSnippet.Name, as.AlfredSnippet.Snippet, "", "", strings.Split(as.AlfredSnippet.Keyword, " ")))
+	return snippets, nil
 }
 
 func (a *Alfred) Export(snippets snippet.Snippets, dest string) error {

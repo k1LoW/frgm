@@ -57,7 +57,7 @@ func TestDecode(t *testing.T) {
 	for _, tt := range tests {
 		in := bytes.NewBufferString(tt.in)
 		pet := New()
-		got, err := pet.Decode(in)
+		got, err := pet.Decode(in, "default")
 		if err != nil {
 			t.Fatal(err)
 		}

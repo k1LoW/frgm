@@ -14,7 +14,7 @@ type Loader interface {
 }
 
 type Decoder interface {
-	Decode(in io.Reader) (snippet.Snippets, error)
+	Decode(in io.Reader, group string) (snippet.Snippets, error)
 }
 
 type Exporter interface {
