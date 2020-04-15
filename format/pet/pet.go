@@ -46,8 +46,13 @@ func (p *Pet) Load(src string) (snippet.Snippets, error) {
 	if !allowExts.Contains(ext) {
 		return snippets, fmt.Errorf("pet snippet file should be .toml: %s", src)
 	}
-	psnips, err := p.LoadFile(file)
-	if err != nil {
+	return p.Decode(file, "default")
+}
+
+func (p *Pet) Decode(in io.Reader, group string) (snippet.Snippets, error) {
+	snippets := snippet.Snippets{}
+	var psnips Snippets
+	if _, err := toml.DecodeReader(in, &psnips); err != nil {
 		return snippets, err
 	}
 	for _, s := range psnips.Snippets {
@@ -55,12 +60,12 @@ func (p *Pet) Load(src string) (snippet.Snippets, error) {
 		if err != nil {
 			return snippets, err
 		}
-		snippets = append(snippets, snippet.New(uid, "default", s.Description, s.Command, s.Output, "", s.Tag))
+		snippets = append(snippets, snippet.New(uid, group, s.Description, s.Command, s.Output, "", s.Tag))
 	}
 	return snippets, nil
 }
 
-func (p *Pet) LoadFile(in io.Reader) (Snippets, error) {
+func (p *Pet) loadFile(in io.Reader) (Snippets, error) {
 	var psnips Snippets
 	if _, err := toml.DecodeReader(in, &psnips); err != nil {
 		return psnips, err

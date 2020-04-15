@@ -2,6 +2,7 @@ package format
 
 import (
 	"fmt"
+	"io"
 	"strings"
 	"text/template"
 
@@ -10,6 +11,10 @@ import (
 
 type Loader interface {
 	Load(src string) (snippet.Snippets, error)
+}
+
+type Decoder interface {
+	Decode(in io.Reader, group string) (snippet.Snippets, error)
 }
 
 type Exporter interface {

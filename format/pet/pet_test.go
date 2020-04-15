@@ -11,15 +11,15 @@ import (
 	"github.com/k1LoW/frgm/snippet"
 )
 
-func TestLoadFile(t *testing.T) {
+func TestDecode(t *testing.T) {
 	tests := []struct {
 		in   string
-		want Snippets
+		want snippet.Snippets
 	}{
 		{
 			in: `
 `,
-			want: Snippets{},
+			want: snippet.Snippets{},
 		},
 		{
 			in: `[[snippets]]
@@ -34,20 +34,22 @@ func TestLoadFile(t *testing.T) {
   tag = ["sample"]
   output = "hello"
 `,
-			want: Snippets{
-				Snippets: []Snippet{
-					Snippet{
-						Command:     "ping 8.8.8.8",
-						Description: "ping",
-						Output:      "",
-						Tag:         []string{"network", "google"},
-					},
-					Snippet{
-						Command:     "echo hello",
-						Description: "hello",
-						Output:      "hello",
-						Tag:         []string{"sample"},
-					},
+			want: snippet.Snippets{
+				&snippet.Snippet{
+					UID:     "pet-df7bb29f9681",
+					Group:   "default",
+					Content: "ping 8.8.8.8",
+					Name:    "ping",
+					Output:  "",
+					Labels:  []string{"network", "google"},
+				},
+				&snippet.Snippet{
+					UID:     "pet-584a331fd6b0",
+					Group:   "default",
+					Content: "echo hello",
+					Name:    "hello",
+					Output:  "hello",
+					Labels:  []string{"sample"},
 				},
 			},
 		},
@@ -55,7 +57,7 @@ func TestLoadFile(t *testing.T) {
 	for _, tt := range tests {
 		in := bytes.NewBufferString(tt.in)
 		pet := New()
-		got, err := pet.LoadFile(in)
+		got, err := pet.Decode(in, "default")
 		if err != nil {
 			t.Fatal(err)
 		}
