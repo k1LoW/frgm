@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/k1LoW/frgm/snippet"
 )
 
 func TestLoadSet(t *testing.T) {
@@ -119,8 +120,8 @@ snippets:
 		},
 	}
 
+	frgm := New([]string{})
 	for _, tt := range tests {
-		frgm := New([]string{})
 		in := bytes.NewBufferString(tt.in)
 		got, err := frgm.LoadSet(in, tt.group)
 		if err != nil {
@@ -135,6 +136,44 @@ snippets:
 
 		if diff := cmp.Diff(got, want, nil); diff != "" {
 			t.Errorf("got %v\nwant %v", got, want)
+		}
+	}
+}
+
+func TestEncode(t *testing.T) {
+	tests := []struct {
+		snippets snippet.Snippets
+		want     string
+	}{
+		{
+			snippets: snippet.Snippets{},
+			want: `snippets: []
+`,
+		},
+		{
+			snippets: snippet.Snippets{
+				snippet.New("frgm-de1fbe2f7573", "my-group", "hello world", "echo hello world", "hello world", "show following\nhello world\n", []string{}),
+			},
+			want: `snippets:
+- uid: frgm-de1fbe2f7573
+  group: my-group
+  name: hello world
+  content: echo hello world
+  output: hello world
+  desc: |
+    show following
+    hello world
+`,
+		},
+	}
+
+	frgm := New([]string{})
+	for _, tt := range tests {
+		out := new(bytes.Buffer)
+		frgm.Encode(tt.snippets, out)
+		got := out.String()
+		if got != tt.want {
+			t.Errorf("got %v\nwant %v", got, tt.want)
 		}
 	}
 }
