@@ -133,7 +133,18 @@ $ frgm import --from ~/Library/Application Support/Alfred/Alfred.alfredpreferenc
 
 ### Convert * snippets ( `frgm convert` )
 
-#### Convert [Alfred](https://www.alfredapp.com/) snippet file
+#### Convert `history` output into frgm snippets
+
+``` console
+$ history | tail -1 | ./frgm convert --format history --group from-history
+snippets:
+- uid: history-8cc0c8477ec0
+  group: from-history
+  name: git branch --merged | grep -v master | xargs git branch -d
+  content: git branch --merged | grep -v master | xargs git branch -d
+```
+
+#### Convert [Alfred](https://www.alfredapp.com/) snippet file into frgm snippet
 
 ``` console
 $ cat /path/to/alfredsnippet.json | frgm convert --format alfred --group search
@@ -146,7 +157,7 @@ snippets:
   - log
 ```
 
-#### Convert [pet](https://github.com/knqyf263/pet) snippets file
+#### Convert [pet](https://github.com/knqyf263/pet) snippets file into frgm snippets
 
 ``` console
 $ cat /path/to/pet-snippets.toml. | frgm convert --format pet --group pet

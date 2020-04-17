@@ -30,6 +30,7 @@ import (
 	"github.com/k1LoW/frgm/format"
 	"github.com/k1LoW/frgm/format/alfred"
 	"github.com/k1LoW/frgm/format/frgm"
+	"github.com/k1LoW/frgm/format/history"
 	"github.com/k1LoW/frgm/format/pet"
 	"github.com/spf13/cobra"
 )
@@ -73,6 +74,8 @@ func runConvert(args []string) (int, error) {
 		decoder = alfred.New(config.GetStringSlice("global.ignore"))
 	case "pet":
 		decoder = pet.New()
+	case "history":
+		decoder = history.New()
 	default:
 		return 1, fmt.Errorf("unsupported format '%s'", formatType)
 	}
