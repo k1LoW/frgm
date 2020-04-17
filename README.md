@@ -136,11 +136,13 @@ $ frgm import --from ~/Library/Application Support/Alfred/Alfred.alfredpreferenc
 #### Convert `history` output into frgm snippets
 
 ``` console
-$ history | tail -1 | ./frgm convert --format history --group from-history
+$ history | tail -1
+21344  frgm convert --format history --group from-history # Delete merged branch
+$ history | tail -1 | frgm convert --format history --group from-history
 snippets:
 - uid: history-8cc0c8477ec0
   group: from-history
-  name: git branch --merged | grep -v master | xargs git branch -d
+  name: Delete merged branch
   content: git branch --merged | grep -v master | xargs git branch -d
 ```
 
