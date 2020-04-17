@@ -13,12 +13,16 @@ type Loader interface {
 	Load(src string) (snippet.Snippets, error)
 }
 
+type Exporter interface {
+	Export(snippets snippet.Snippets, dest string) error
+}
+
 type Decoder interface {
 	Decode(in io.Reader, group string) (snippet.Snippets, error)
 }
 
-type Exporter interface {
-	Export(snippets snippet.Snippets, dest string) error
+type Encoder interface {
+	Encode(out io.Writer, snippets snippet.Snippets) error
 }
 
 type Exts []string

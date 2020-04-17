@@ -259,6 +259,18 @@ L:
 	return nil
 }
 
+func (f *Frgm) Encode(out io.Writer, snippets snippet.Snippets) error {
+	set := snippet.SnippetSet{
+		Group:    "",
+		Snippets: snippets,
+	}
+	encoder := yaml.NewEncoder(out)
+	if err := encoder.Encode(set); err != nil {
+		return err
+	}
+	return nil
+}
+
 func genUID(g, d, c string) (string, error) {
 	h := sha256.New()
 	if _, err := io.WriteString(h, fmt.Sprintf("%s-%s-%s", g, d, c)); err != nil {
