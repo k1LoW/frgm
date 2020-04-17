@@ -259,7 +259,7 @@ L:
 	return nil
 }
 
-func (f *Frgm) Encode(snippets snippet.Snippets, out io.Writer) error {
+func (f *Frgm) Encode(out io.Writer, snippets snippet.Snippets) error {
 	set := snippet.SnippetSet{
 		Group:    "",
 		Snippets: snippets,

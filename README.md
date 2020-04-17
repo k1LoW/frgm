@@ -131,6 +131,42 @@ snippets:
 $ frgm import --from ~/Library/Application Support/Alfred/Alfred.alfredpreferences/snippets --format alfred
 ```
 
+### Convert * snippets ( `frgm convert` )
+
+#### Convert [Alfred](https://www.alfredapp.com/) snippet file
+
+``` console
+$ cat /path/to/alfredsnippet.json | frgm convert --format alfred --group search
+snippets:
+- uid: frgm-46c29e119523
+  group: search
+  name: Search log file
+  content: lsof -c nginx | grep -v .so | grep .log | awk '{print $9}' | sort | uniq
+  labels:
+  - log
+```
+
+#### Convert [pet](https://github.com/knqyf263/pet) snippets file
+
+``` console
+$ cat /path/to/pet-snippets.toml. | frgm convert --format pet --group pet
+snippets:
+- uid: pet-df7bb29f9681
+  group: pet
+  name: ping
+  content: ping 8.8.8.8
+  labels:
+  - network
+  - google
+- uid: pet-584a331fd6b0
+  group: pet
+  name: hello
+  content: echo hello
+  output: hello
+  labels:
+  - sample
+```
+
 ### Use frgm snippets ( `frgm list` )
 
 ``` console
