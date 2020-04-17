@@ -85,15 +85,15 @@ $ frgm export --to /path/to/snippets.md --format md
 
 **Key Mapping:**
 
-| frgm snippet key | Default / Required | [Alfred](https://www.alfredapp.com/) | [pet](https://github.com/knqyf263/pet) |
-| --- | --- | --- | --- |
-| `uid:` | Default is automatically generated | `uid` | - |
-| `group:` | Default is default group name of snippets or file name | directory | - |
-| `name:` | required | `name` | `description:` |
-| `desc:` | | - | - |
-| `content:` | required | `snippet` | `command:` |
-| `output:` | | - | `output:` |
-| `labels:` | | `keyword` | `tag:` |
+| frgm snippet key | Default / Required | [Alfred](https://www.alfredapp.com/) | [pet](https://github.com/knqyf263/pet) | Markdown |
+| --- | --- | --- | --- | --- |
+| `uid:` | Default is automatically generated | `uid` | - | use as link.hash |
+| `group:` | Default is default group name of snippets or file name | directory | - | use |
+| `name:` | required | `name` | `description:` | use |
+| `desc:` | | - | - | use |
+| `content:` | required | `snippet` | `command:` | use |
+| `output:` | | - | `output:` | use |
+| `labels:` | | `keyword` | `tag:` | use |
 
 #### Fill uid, group ( `frgm fill` )
 
