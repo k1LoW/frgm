@@ -170,7 +170,7 @@ func TestEncode(t *testing.T) {
 	frgm := New([]string{})
 	for _, tt := range tests {
 		out := new(bytes.Buffer)
-		frgm.Encode(tt.snippets, out)
+		frgm.Encode(out, tt.snippets)
 		got := out.String()
 		if got != tt.want {
 			t.Errorf("got %v\nwant %v", got, tt.want)
