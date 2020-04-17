@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.4.0](https://github.com/k1LoW/frgm/compare/v0.3.0...v0.4.0) (2020-04-18)
+
+* Add frgm convert format `history` [#16](https://github.com/k1LoW/frgm/pull/16) ([k1LoW](https://github.com/k1LoW))
+* Add command `frgm convert` [#15](https://github.com/k1LoW/frgm/pull/15) ([k1LoW](https://github.com/k1LoW))
+* Add Decoder interface [#14](https://github.com/k1LoW/frgm/pull/14) ([k1LoW](https://github.com/k1LoW))
+
 ## [v0.3.0](https://github.com/k1LoW/frgm/compare/v0.2.1...v0.3.0) (2020-04-12)
 
 * Display output: on markdown document. [#13](https://github.com/k1LoW/frgm/pull/13) ([k1LoW](https://github.com/k1LoW))
