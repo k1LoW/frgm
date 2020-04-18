@@ -2,7 +2,11 @@
 
 `frgm` is a meta snippet (fragment) manager.
 
-![frgm](frgm.png)
+<p align="center">
+<br>
+<img src="https://github.com/k1LoW/frgm/raw/master/frgm.png" width="900" alt="frgm">
+<br>
+</p>
 
 Key features of `frgm` are:
 
