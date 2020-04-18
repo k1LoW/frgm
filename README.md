@@ -2,6 +2,8 @@
 
 `frgm` is a meta snippet (fragment) manager.
 
+![frgm](frgm.png)
+
 Key features of `frgm` are:
 
 - **[Can export snippets in other snippet tool format](#export-frgm-snippets-as--snippets--frgm-export-)**.
