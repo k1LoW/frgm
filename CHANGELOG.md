@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.5.0](https://github.com/k1LoW/frgm/compare/v0.4.0...v0.5.0) (2020-04-24)
+
+* Add command `frgm man [UID]` [#17](https://github.com/k1LoW/frgm/pull/17) ([k1LoW](https://github.com/k1LoW))
+
 ## [v0.4.0](https://github.com/k1LoW/frgm/compare/v0.3.0...v0.4.0) (2020-04-18)
 
 * Add frgm convert format `history` [#16](https://github.com/k1LoW/frgm/pull/16) ([k1LoW](https://github.com/k1LoW))
