@@ -11,10 +11,12 @@ require (
 	github.com/goccy/go-yaml v1.4.3
 	github.com/google/go-cmp v0.2.0
 	github.com/karrick/godirwalk v1.15.5
+	github.com/labstack/gommon v0.3.0
 	github.com/mattn/go-colorable v0.1.6 // indirect
 	github.com/mattn/go-tty v0.0.3
 	github.com/mitchellh/mapstructure v1.2.2 // indirect
 	github.com/pelletier/go-toml v1.7.0 // indirect
+	github.com/pkg/errors v0.8.0
 	github.com/sabhiram/go-gitignore v0.0.0-20180611051255-d3107576ba94
 	github.com/sirupsen/logrus v1.5.0 // indirect
 	github.com/spf13/afero v1.2.2 // indirect
