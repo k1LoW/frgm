@@ -22,6 +22,7 @@ THE SOFTWARE.
 package cmd
 
 import (
+	"io/ioutil"
 	"os"
 	"strings"
 	"text/template"
@@ -29,6 +30,7 @@ import (
 	"github.com/k1LoW/frgm/config"
 	"github.com/k1LoW/frgm/format/frgm"
 	"github.com/labstack/gommon/color"
+	"github.com/mattn/go-isatty"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 )
@@ -38,7 +40,15 @@ var manCmd = &cobra.Command{
 	Use:   "man [UID]",
 	Short: "Show command man",
 	Long:  `Show command man.`,
-	Args:  cobra.ExactArgs(1),
+	Args: func(cmd *cobra.Command, args []string) error {
+		if len(args) == 1 {
+			return nil
+		}
+		if isatty.IsTerminal(os.Stdin.Fd()) {
+			return errors.New("accepts 1 arg(s), received 0")
+		}
+		return nil
+	},
 	Run: func(cmd *cobra.Command, args []string) {
 		err := runMan(args)
 		if err != nil {
@@ -49,7 +59,16 @@ var manCmd = &cobra.Command{
 }
 
 func runMan(args []string) error {
-	uid := args[0]
+	var uid string
+	if len(args) == 1 {
+		uid = args[0]
+	} else {
+		stdin, err := ioutil.ReadAll(os.Stdin)
+		if err != nil {
+			return err
+		}
+		uid = strings.TrimSpace(string(stdin))
+	}
 	loader := frgm.New(config.GetStringSlice("global.ignore"))
 
 	if srcPath == "" {
