@@ -22,7 +22,6 @@ THE SOFTWARE.
 package cmd
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/k1LoW/frgm/config"
@@ -36,27 +35,27 @@ var fillCmd = &cobra.Command{
 	Short: "Fill in the blanks in current snippets",
 	Long:  `Fill in the blanks in current snippets.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		status, err := runFill(args)
+		err := runFill(args)
 		if err != nil {
-			_, _ = fmt.Fprintf(os.Stderr, "%s\n", err)
+			cmd.PrintErrln(err)
+			os.Exit(1)
 		}
-		os.Exit(status)
 	},
 }
 
-func runFill(args []string) (int, error) {
+func runFill(args []string) error {
 	srcPath = config.GetString("global.snippets_path")
 	exporter := frgm.New(config.GetStringSlice("global.ignore"))
 	snippets, err := exporter.Load(srcPath)
 	if err != nil {
-		return 1, err
+		return err
 	}
 	err = exporter.Export(snippets, srcPath)
 	if err != nil {
-		return 1, err
+		return err
 	}
 
-	return 0, nil
+	return nil
 }
 
 func init() {

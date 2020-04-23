@@ -37,15 +37,15 @@ var configCmd = &cobra.Command{
 	Short: "Get and set frgm config",
 	Long:  `Get and set frgm config.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		status, err := runConfig(args)
+		err := runConfig(args)
 		if err != nil {
-			_, _ = fmt.Fprintf(os.Stderr, "%s\n", err)
+			cmd.PrintErrln(err)
+			os.Exit(1)
 		}
-		os.Exit(status)
 	},
 }
 
-func runConfig(args []string) (int, error) {
+func runConfig(args []string) error {
 	switch {
 	case len(args) == 0:
 		for k, v := range viper.AllSettings() {
@@ -62,15 +62,15 @@ func runConfig(args []string) (int, error) {
 		fmt.Printf("%v\n", viper.Get(args[0]))
 	case len(args) == 2:
 		if err := config.Set(args[0], args[1]); err != nil {
-			return 1, err
+			return err
 		}
 		if err := config.Save(); err != nil {
-			return 1, err
+			return err
 		}
 	default:
-		return 1, errors.New("invalid arguments")
+		return errors.New("invalid arguments")
 	}
-	return 0, nil
+	return nil
 }
 
 func init() {

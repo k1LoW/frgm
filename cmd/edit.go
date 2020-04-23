@@ -23,7 +23,6 @@ package cmd
 
 import (
 	"errors"
-	"fmt"
 	"os"
 	"os/exec"
 
@@ -38,22 +37,22 @@ var editCmd = &cobra.Command{
 	Short: "Edit global.snippets_path using $EDITOR",
 	Long:  `Edit global.snippets_path using $EDITOR.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		status, err := runEdit(args)
+		err := runEdit(args)
 		if err != nil {
-			_, _ = fmt.Fprintf(os.Stderr, "%s\n", err)
+			cmd.PrintErrln(err)
+			os.Exit(1)
 		}
-		os.Exit(status)
 	},
 }
 
-func runEdit(args []string) (int, error) {
+func runEdit(args []string) error {
 	e := os.Getenv("EDITOR")
 	if e == "" {
-		return 1, errors.New("$EDITOR is not set")
+		return errors.New("$EDITOR is not set")
 	}
 	tty, err := tty.Open()
 	if err != nil {
-		return 1, err
+		return err
 	}
 	defer tty.Close()
 	c := exec.Command(e, config.GetString("global.snippets_path")) // #nosec
@@ -61,9 +60,9 @@ func runEdit(args []string) (int, error) {
 	c.Stdout = tty.Output()
 	c.Stderr = tty.Output()
 	if err := c.Run(); err != nil {
-		return 1, err
+		return err
 	}
-	return 0, nil
+	return nil
 }
 
 func init() {

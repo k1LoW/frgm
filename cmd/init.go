@@ -39,19 +39,19 @@ var initCmd = &cobra.Command{
 	Short: "Initialize frgm",
 	Long:  `Initialize frgm.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		status, err := runInit(args)
+		err := runInit(args)
 		if err != nil {
-			_, _ = fmt.Fprintf(os.Stderr, "%s\n", err)
+			cmd.PrintErrln(err)
+			os.Exit(1)
 		}
-		os.Exit(status)
 	},
 }
 
-func runInit(args []string) (int, error) {
+func runInit(args []string) error {
 	path := config.GetString("global.snippets_path")
 	path = prompter.Prompt("Enter snippet path (dir or .yml file) [global.snippets_path]", path)
 	if err := config.Set("global.snippets_path", path); err != nil {
-		return 1, err
+		return err
 	}
 	_, err := os.Stat(path)
 	if err != nil {
@@ -59,26 +59,26 @@ func runInit(args []string) (int, error) {
 		if frgm.AllowExts.Contains(ext) {
 			if yn := prompter.YN(fmt.Sprintf("Create new snippet file (%s) ?", path), true); yn {
 				if err := os.MkdirAll(filepath.Dir(path), 0700); err != nil {
-					return 1, err
+					return err
 				}
 				if err := ioutil.WriteFile(path, []byte("---\nsnippets:\n"), 0600); err != nil {
-					return 1, err
+					return err
 				}
 			}
 		} else {
 			if yn := prompter.YN(fmt.Sprintf("Create snippets directory (%s)?", path), true); yn {
 				if err := os.MkdirAll(path, 0700); err != nil {
-					return 1, err
+					return err
 				}
 			}
 		}
 	}
 
 	if err := config.Save(); err != nil {
-		return 1, err
+		return err
 	}
 
-	return 0, nil
+	return nil
 }
 
 func init() {

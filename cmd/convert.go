@@ -45,7 +45,7 @@ var convertCmd = &cobra.Command{
 	Args: func(cmd *cobra.Command, args []string) error {
 		fi, err := os.Stdin.Stat()
 		if err != nil {
-			_, _ = fmt.Fprintf(os.Stderr, "%s\n", err)
+			cmd.PrintErrln(err)
 			os.Exit(1)
 		}
 		if (fi.Mode() & os.ModeCharDevice) != 0 {
@@ -54,15 +54,15 @@ var convertCmd = &cobra.Command{
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		status, err := runConvert(args)
+		err := runConvert(args)
 		if err != nil {
-			_, _ = fmt.Fprintf(os.Stderr, "%s\n", err)
+			cmd.PrintErrln(err)
+			os.Exit(1)
 		}
-		os.Exit(status)
 	},
 }
 
-func runConvert(args []string) (int, error) {
+func runConvert(args []string) error {
 	var (
 		decoder format.Decoder
 		encoder format.Encoder
@@ -77,18 +77,18 @@ func runConvert(args []string) (int, error) {
 	case "history":
 		decoder = history.New()
 	default:
-		return 1, fmt.Errorf("unsupported format '%s'", formatType)
+		return fmt.Errorf("unsupported format '%s'", formatType)
 	}
 
 	snippets, err := decoder.Decode(os.Stdin, group)
 	if err != nil {
-		return 1, err
+		return err
 	}
 	if err := encoder.Encode(os.Stdout, snippets); err != nil {
-		return 1, err
+		return err
 	}
 
-	return 0, nil
+	return nil
 }
 
 func init() {

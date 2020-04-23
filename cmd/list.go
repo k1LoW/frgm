@@ -39,26 +39,26 @@ var listCmd = &cobra.Command{
 	Short: "List snippets",
 	Long:  `List snippets.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		status, err := runList(args)
+		err := runList(args)
 		if err != nil {
-			_, _ = fmt.Fprintf(os.Stderr, "%s\n", err)
+			cmd.PrintErrln(err)
+			os.Exit(1)
 		}
-		os.Exit(status)
 	},
 }
 
-func runList(args []string) (int, error) {
+func runList(args []string) error {
 	srcPath = config.GetString("global.snippets_path")
 	loader := frgm.New(config.GetStringSlice("global.ignore"))
 	snippets, err := loader.Load(srcPath)
 	if err != nil {
-		return 1, err
+		return err
 	}
 	for _, s := range snippets {
 		r := strings.NewReplacer(":uid", s.UID, ":group", s.Group, ":name", s.Name, ":content", s.Content, ":labels", strings.Join(s.Labels, " "), ":desc", s.Desc)
 		fmt.Println(r.Replace(listFormat))
 	}
-	return 0, nil
+	return nil
 }
 
 func init() {

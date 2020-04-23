@@ -38,15 +38,15 @@ var importCmd = &cobra.Command{
 	Short: "Import other app snippets as frgm snippets",
 	Long:  `Import other app snippets as frgm snippets.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		status, err := runImport(args)
+		err := runImport(args)
 		if err != nil {
-			_, _ = fmt.Fprintf(os.Stderr, "%s\n", err)
+			cmd.PrintErrln(err)
+			os.Exit(1)
 		}
-		os.Exit(status)
 	},
 }
 
-func runImport(args []string) (int, error) {
+func runImport(args []string) error {
 	destPath = config.GetString("global.snippets_path")
 	var (
 		loader   format.Loader
@@ -56,25 +56,25 @@ func runImport(args []string) (int, error) {
 	case "alfred":
 		loader = alfred.New(config.GetStringSlice("global.ignore"))
 	default:
-		return 1, fmt.Errorf("unsupported format '%s'", formatType)
+		return fmt.Errorf("unsupported format '%s'", formatType)
 	}
 	exporter = frgm.New(config.GetStringSlice("global.ignore"))
 
 	snippets, err := loader.Load(srcPath)
 	if err != nil {
-		return 1, err
+		return err
 	}
 
 	if err := snippets.Validate(); err != nil {
-		return 1, err
+		return err
 	}
 
 	err = exporter.Export(snippets, destPath)
 	if err != nil {
-		return 1, err
+		return err
 	}
 
-	return 0, nil
+	return nil
 }
 
 func init() {

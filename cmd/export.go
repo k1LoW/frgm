@@ -40,15 +40,15 @@ var exportCmd = &cobra.Command{
 	Short: "Export frgm snippets as other app snippets",
 	Long:  `Export frgm snippets as othre app snippets.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		status, err := runExport(args)
+		err := runExport(args)
 		if err != nil {
-			_, _ = fmt.Fprintf(os.Stderr, "%s\n", err)
+			cmd.PrintErrln(err)
+			os.Exit(1)
 		}
-		os.Exit(status)
 	},
 }
 
-func runExport(args []string) (int, error) {
+func runExport(args []string) error {
 	var (
 		loader   format.Loader
 		exporter format.Exporter
@@ -63,7 +63,7 @@ func runExport(args []string) (int, error) {
 	case "md":
 		exporter = md.New(config.GetStringSlice("global.ignore"))
 	default:
-		return 1, fmt.Errorf("unsupported format '%s'", formatType)
+		return fmt.Errorf("unsupported format '%s'", formatType)
 	}
 
 	if srcPath == "" {
@@ -72,19 +72,19 @@ func runExport(args []string) (int, error) {
 
 	snippets, err := loader.Load(srcPath)
 	if err != nil {
-		return 1, err
+		return err
 	}
 
 	if err := snippets.Validate(); err != nil {
-		return 1, err
+		return err
 	}
 
 	err = exporter.Export(snippets, destPath)
 	if err != nil {
-		return 1, err
+		return err
 	}
 
-	return 0, nil
+	return nil
 }
 
 func init() {
