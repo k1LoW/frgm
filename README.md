@@ -192,6 +192,18 @@ snippets:
 $ frgm list
 ```
 
+#### zsh auto-complete from snippets using [fzf](https://github.com/junegunn/fzf) (Ctrl+j)
+
+``` zsh
+function fzf-select-snippets() {
+    BUFFER=$(frgm list --format ':content # :name [:group :labels] :uid' | fzf --reverse --border --preview "echo {} | rev | cut -f 1 -d ' ' | rev | frgm man")
+    CURSOR=$#BUFFER
+    zle clear-screen
+}
+zle -N fzf-select-snippets
+bindkey '^j' fzf-select-snippets
+```
+
 #### zsh auto-complete from snippets using [peco](https://github.com/peco/peco) (Ctrl+j)
 
 ``` zsh
