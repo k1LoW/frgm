@@ -55,7 +55,7 @@ func runList(args []string) error {
 		return err
 	}
 	for _, s := range snippets {
-		r := strings.NewReplacer(":uid", s.UID, ":group", s.Group, ":name", s.Name, ":content", s.Content, ":labels", strings.Join(s.Labels, " "), ":desc", s.Desc)
+		r := strings.NewReplacer(":uid", s.UID, ":group", s.Group, ":name", s.Name, ":content", s.Content, ":labels", strings.Join(s.Labels, " "), ":desc", s.Desc, ":output", s.Output)
 		fmt.Println(r.Replace(listFormat))
 	}
 	return nil
