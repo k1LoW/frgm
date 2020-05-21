@@ -38,6 +38,10 @@ func (exts Exts) Contains(t string) bool {
 
 func Funcs() map[string]interface{} {
 	return template.FuncMap{
+		"nl2mdnl": func(text string) string {
+			r := strings.NewReplacer("\r\n", "  \n", "\n", "  \n", "\r", "  \n")
+			return r.Replace(text)
+		},
 		"label_join": func(l []string) string {
 			return fmt.Sprintf("`%s`", strings.Join(l, "` `"))
 		},
