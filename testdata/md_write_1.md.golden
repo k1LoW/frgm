@@ -1,4 +1,4 @@
-# Snippets
+## Snippets
 
 - group-a
   - [a-1](#uid-a-1)
@@ -6,15 +6,9 @@
 - group-b
   - [b-1](#uid-b-1)
 
-## group-a
+### group-a
 
-### <a name="uid-a-1"></a>a-1
-
-<p align="right">
-<code>label-a</code><code>label:1</code>
-</p>
-
-desc a-1
+#### <a name="uid-a-1"></a>a-1
 
 ```
 echo a-1
@@ -25,26 +19,32 @@ echo a-1
 out a-1
 ```
 
-### <a name="uid-a-2"></a>a-2
+desc a-1
 
 <p align="right">
-<code>label-a</code><code>label:2</code>
+<code>label-a</code> <code>label:1</code>
 </p>
+
+#### <a name="uid-a-2"></a>a-2
 
 ```
 echo a-2
 ```
 
-## group-b
+<p align="right">
+<code>label-a</code> <code>label:2</code>
+</p>
 
-### <a name="uid-b-1"></a>b-1
+### group-b
 
-desc b-1  
-desc b-1
+#### <a name="uid-b-1"></a>b-1
 
 ```
 echo b-1
 ```
+
+desc b-1  
+desc b-1
 
 ---
 

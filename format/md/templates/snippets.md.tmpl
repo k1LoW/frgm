@@ -1,4 +1,4 @@
-# Snippets
+## Snippets
 {{ range $set := .Sets }}
 - {{ $set.Group -}}
 {{ range $s := $set.Snippets }}
@@ -7,18 +7,10 @@
 {{ end -}}
 {{ range $set := .Sets }}
 
-## {{ $set.Group }}
+### {{ $set.Group -}}
 {{ range $s := $set.Snippets }}
-### <a name="{{ $s.UID }}"></a>{{ $s.Name -}}
-{{ if ne (len $s.Labels) 0 }}
 
-<p align="right">
-{{ $s.Labels | label_join }}
-</p>{{ end -}}
-{{ if ne $s.Desc "" }}
-
-{{ $s.Desc | nl2mdnl -}}
-{{ end }}
+#### <a name="{{ $s.UID }}"></a>{{ $s.Name }}
 
 ```
 {{ $s.Content }}
@@ -28,8 +20,16 @@
 **output:**
 ```
 {{ $s.Output }}
-```
+```{{ end -}}
+{{ if ne $s.Desc "" }}
+
+{{ $s.Desc | nl2mdnl -}}
 {{ end -}}
+{{ if ne (len $s.Labels) 0 }}
+
+<p align="right">
+{{ $s.Labels | label_join }}
+</p>{{ end -}}
 {{ end -}}
 {{ end }}
 
