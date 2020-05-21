@@ -10,7 +10,9 @@
 
 ### <a name="uid-a-1"></a>a-1
 
-**labels:** `label-a` `label:1`
+<p align="right">
+<code>label-a</code><code>label:1</code>
+</p>
 
 desc a-1
 
@@ -25,7 +27,9 @@ out a-1
 
 ### <a name="uid-a-2"></a>a-2
 
-**labels:** `label-a` `label:2`
+<p align="right">
+<code>label-a</code><code>label:2</code>
+</p>
 
 ```
 echo a-2

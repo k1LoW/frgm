@@ -12,8 +12,9 @@
 ### <a name="{{ $s.UID }}"></a>{{ $s.Name -}}
 {{ if ne (len $s.Labels) 0 }}
 
-**labels:** {{ $s.Labels | label_join -}}
-{{ end -}}
+<p align="right">
+{{ $s.Labels | label_join }}
+</p>{{ end -}}
 {{ if ne $s.Desc "" }}
 
 {{ $s.Desc | nl2mdnl -}}

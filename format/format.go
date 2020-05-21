@@ -43,7 +43,7 @@ func Funcs() map[string]interface{} {
 			return r.Replace(text)
 		},
 		"label_join": func(l []string) string {
-			return fmt.Sprintf("`%s`", strings.Join(l, "` `"))
+			return fmt.Sprintf("<code>%s</code>", strings.Join(l, "</code><code>"))
 		},
 	}
 }
