@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.6.1](https://github.com/k1LoW/frgm/compare/v0.6.0...v0.6.1) (2020-05-22)
+
+* More fix markdown format [#20](https://github.com/k1LoW/frgm/pull/20) ([k1LoW](https://github.com/k1LoW))
+
 ## [v0.6.0](https://github.com/k1LoW/frgm/compare/v0.5.1...v0.6.0) (2020-05-21)
 
 * Fix markdown format [#19](https://github.com/k1LoW/frgm/pull/19) ([k1LoW](https://github.com/k1LoW))
