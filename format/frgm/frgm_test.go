@@ -158,11 +158,22 @@ func TestEncode(t *testing.T) {
 - uid: frgm-de1fbe2f7573
   group: my-group
   name: hello world
-  content: echo hello world
-  output: hello world
   desc: |
     show following
     hello world
+  content: echo hello world
+  output: hello world
+`,
+		},
+		{
+			snippets: snippet.Snippets{
+				snippet.New("frgm-de1fbe2f7573", "my-group", "count access.log", `cat /var/log/nginx/access.log | awk '{ if (($1 == "domain:example.com") && ($8 ~ /^status:[2345]/)) { arr[$8]++; x++ } } END { for (i in arr) { printf "%s\t%.2f%\t%s / %s\n", i, arr[i]/x*100, arr[i], x } }' | sort -nk1`, "", "", []string{}),
+			},
+			want: `snippets:
+- uid: frgm-de1fbe2f7573
+  group: my-group
+  name: count access.log
+  content: "cat /var/log/nginx/access.log | awk '{ if (($1 == \"domain:example.com\") && ($8 ~ /^status:[2345]/)) { arr[$8]++; x++ } } END { for (i in arr) { printf \"%s\\t%.2f%\\t%s / %s\\n\", i, arr[i]/x*100, arr[i], x } }' | sort -nk1"
 `,
 		},
 	}
@@ -170,10 +181,19 @@ func TestEncode(t *testing.T) {
 	frgm := New([]string{})
 	for _, tt := range tests {
 		out := new(bytes.Buffer)
-		frgm.Encode(out, tt.snippets)
+		if err := frgm.Encode(out, tt.snippets); err != nil {
+			t.Fatal(err)
+		}
 		got := out.String()
 		if got != tt.want {
 			t.Errorf("got %v\nwant %v", got, tt.want)
+		}
+		set, err := frgm.LoadSet(out, "default")
+		if err != nil {
+			t.Fatal(err)
+		}
+		if diff := cmp.Diff(set.Snippets, tt.snippets, nil); diff != "" {
+			t.Errorf("%s", diff)
 		}
 	}
 }

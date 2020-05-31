@@ -9,9 +9,9 @@ type Snippet struct {
 	UID      string   `json:"uid,omitempty"`
 	Group    string   `json:"group,omitempty"`
 	Name     string   `json:"name"`
+	Desc     string   `json:"desc,omitempty"`
 	Content  string   `json:"content"`
 	Output   string   `json:"output,omitempty"`
-	Desc     string   `json:"desc,omitempty"`
 	Labels   []string `json:"labels,omitempty"`
 	LoadPath string   `json:"-"`
 }
@@ -23,15 +23,18 @@ func (s Snippet) String() string {
 
 // New return new Snippet
 func New(u, g, n, c, o, d string, l []string) *Snippet {
-	return &Snippet{
+	s := Snippet{
 		UID:     u,
 		Group:   g,
 		Name:    n,
 		Content: c,
 		Output:  o,
 		Desc:    d,
-		Labels:  l,
 	}
+	if len(l) > 0 {
+		s.Labels = l
+	}
+	return &s
 }
 
 type Snippets []*Snippet

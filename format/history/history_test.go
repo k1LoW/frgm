@@ -35,35 +35,30 @@ func TestDecode(t *testing.T) {
 					Group:   "default",
 					Name:    "man history",
 					Content: "man history",
-					Labels:  []string{},
 				},
 				&snippet.Snippet{
 					UID:     "history-709a48a0dc97",
 					Group:   "default",
 					Name:    "git checkout -b format-history",
 					Content: "git checkout -b format-history",
-					Labels:  []string{},
 				},
 				&snippet.Snippet{
 					UID:     "history-fd42cee8fd75",
 					Group:   "default",
 					Name:    "emacs format/",
 					Content: "emacs format/",
-					Labels:  []string{},
 				},
 				&snippet.Snippet{
 					UID:     "history-00b0136f1cf7",
 					Group:   "default",
 					Name:    "go test ./format/history",
 					Content: "go test ./format/history",
-					Labels:  []string{},
 				},
 				&snippet.Snippet{
 					UID:     "history-a3a97692f42a",
 					Group:   "default",
 					Name:    "exec ls",
 					Content: "ls",
-					Labels:  []string{},
 				},
 			},
 		},
@@ -77,7 +72,7 @@ func TestDecode(t *testing.T) {
 			t.Fatal(err)
 		}
 		if diff := cmp.Diff(got, tt.want, nil); diff != "" {
-			t.Errorf("got\n%v\nwant\n%v", got, tt.want)
+			t.Errorf("%v\n", diff)
 		}
 	}
 }
