@@ -9,11 +9,12 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/goccy/go-yaml"
+	// "github.com/goccy/go-yaml"
 	"github.com/k1LoW/frgm/format"
 	"github.com/k1LoW/frgm/snippet"
 	"github.com/karrick/godirwalk"
 	gitignore "github.com/sabhiram/go-gitignore"
+	"gopkg.in/jmhodges/yaml.v2"
 )
 
 var AllowExts = format.Exts{".yml", ".yaml"}
@@ -251,6 +252,7 @@ L:
 			return err
 		}
 		encoder := yaml.NewEncoder(file)
+		encoder.SetLineLength(-1)
 		if err := encoder.Encode(set); err != nil {
 			return err
 		}
@@ -265,6 +267,7 @@ func (f *Frgm) Encode(out io.Writer, snippets snippet.Snippets) error {
 		Snippets: snippets,
 	}
 	encoder := yaml.NewEncoder(out)
+	encoder.SetLineLength(-1)
 	if err := encoder.Encode(set); err != nil {
 		return err
 	}
