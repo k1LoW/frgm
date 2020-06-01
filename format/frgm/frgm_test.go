@@ -167,13 +167,30 @@ func TestEncode(t *testing.T) {
 		},
 		{
 			snippets: snippet.Snippets{
-				snippet.New("frgm-de1fbe2f7573", "my-group", "count access.log", `cat /var/log/nginx/access.log | awk '{ if (($1 == "domain:example.com") && ($8 ~ /^status:[2345]/)) { arr[$8]++; x++ } } END { for (i in arr) { printf "%s\t%.2f%\t%s / %s\n", i, arr[i]/x*100, arr[i], x } }' | sort -nk1`, "", "", []string{}),
+				snippet.New("frgm-de1fbe2f7573", "my-group", "count list", `cat list | sort -nk1`, "", "", []string{"a-b", "c"}),
+			},
+			want: `snippets:
+- uid: frgm-de1fbe2f7573
+  group: my-group
+  name: count list
+  content: cat list | sort -nk1
+  labels:
+  - a-b
+  - c
+`,
+		},
+		{
+			snippets: snippet.Snippets{
+				snippet.New("frgm-de1fbe2f7573", "my-group", "count access.log", `cat /var/log/nginx/access.log | awk '{ if (($1 == "domain:example.com") && ($8 ~ /^status:[2345]/)) { arr[$8]++; x++ } } END { for (i in arr) { printf "%s\t%.2f%\t%s / %s\n", i, arr[i]/x*100, arr[i], x } }' | sort -nk1`, "", "", []string{"a-b", "c"}),
 			},
 			want: `snippets:
 - uid: frgm-de1fbe2f7573
   group: my-group
   name: count access.log
-  content: "cat /var/log/nginx/access.log | awk '{ if (($1 == \"domain:example.com\") && ($8 ~ /^status:[2345]/)) { arr[$8]++; x++ } } END { for (i in arr) { printf \"%s\\t%.2f%\\t%s / %s\\n\", i, arr[i]/x*100, arr[i], x } }' | sort -nk1"
+  content: cat /var/log/nginx/access.log | awk '{ if (($1 == "domain:example.com") && ($8 ~ /^status:[2345]/)) { arr[$8]++; x++ } } END { for (i in arr) { printf "%s\t%.2f%\t%s / %s\n", i, arr[i]/x*100, arr[i], x } }' | sort -nk1
+  labels:
+  - a-b
+  - c
 `,
 		},
 	}

@@ -88,7 +88,7 @@ func runInit(cmd *cobra.Command, args []string) error {
 				}
 			}
 		}
-		cmd.Printf("Create %s", path)
+		cmd.Printf("Create %s\n", path)
 	}
 
 	if err := config.Save(); err != nil {

@@ -6,14 +6,14 @@ import (
 )
 
 type Snippet struct {
-	UID      string   `json:"uid,omitempty"`
-	Group    string   `json:"group,omitempty"`
-	Name     string   `json:"name"`
-	Desc     string   `json:"desc,omitempty"`
-	Content  string   `json:"content"`
-	Output   string   `json:"output,omitempty"`
-	Labels   []string `json:"labels,omitempty"`
-	LoadPath string   `json:"-"`
+	UID      string   `json:"uid,omitempty" yaml:"uid,omitempty"`
+	Group    string   `json:"group,omitempty" yaml:"group,omitempty"`
+	Name     string   `json:"name" yaml:"name"`
+	Desc     string   `json:"desc,omitempty" yaml:"desc,omitempty"`
+	Content  string   `json:"content" yaml:"content"`
+	Output   string   `json:"output,omitempty" yaml:"output,omitempty"`
+	Labels   []string `json:"labels,omitempty" yaml:"labels,omitempty"`
+	LoadPath string   `json:"-" yaml:"-"`
 }
 
 func (s Snippet) String() string {
@@ -77,5 +77,5 @@ func (snips Snippets) Validate() error {
 type SnippetSet struct {
 	Group    string   `yaml:"group,omitempty"`
 	Snippets Snippets `yaml:"snippets"`
-	LoadPath string   `json:"-"`
+	LoadPath string   `json:"-" yaml:"-"`
 }
