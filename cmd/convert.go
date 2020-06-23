@@ -45,7 +45,7 @@ var convertCmd = &cobra.Command{
 	Args: func(cmd *cobra.Command, args []string) error {
 		fi, err := os.Stdin.Stat()
 		if err != nil {
-			cmd.PrintErrln(err)
+			printErrln(cmd, err)
 			os.Exit(1)
 		}
 		if (fi.Mode() & os.ModeCharDevice) != 0 {
@@ -56,7 +56,7 @@ var convertCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		err := runConvert(args)
 		if err != nil {
-			cmd.PrintErrln(err)
+			printErrln(cmd, err)
 			os.Exit(1)
 		}
 	},

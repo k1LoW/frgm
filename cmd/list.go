@@ -22,7 +22,6 @@ THE SOFTWARE.
 package cmd
 
 import (
-	"fmt"
 	"os"
 	"strings"
 
@@ -39,15 +38,15 @@ var listCmd = &cobra.Command{
 	Short: "List snippets",
 	Long:  `List snippets.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		err := runList(args)
+		err := runList(cmd, args)
 		if err != nil {
-			cmd.PrintErrln(err)
+			printErrln(cmd, err)
 			os.Exit(1)
 		}
 	},
 }
 
-func runList(args []string) error {
+func runList(cmd *cobra.Command, args []string) error {
 	srcPath = config.GetString("global.snippets_path")
 	loader := frgm.New(config.GetStringSlice("global.ignore"))
 	snippets, err := loader.Load(srcPath)
@@ -56,7 +55,7 @@ func runList(args []string) error {
 	}
 	for _, s := range snippets {
 		r := strings.NewReplacer(":uid", s.UID, ":group", s.Group, ":name", s.Name, ":content", s.Content, ":labels", strings.Join(s.Labels, " "), ":desc", s.Desc, ":output", s.Output)
-		fmt.Println(r.Replace(listFormat))
+		cmd.Println(r.Replace(listFormat))
 	}
 	return nil
 }

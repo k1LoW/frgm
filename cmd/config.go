@@ -23,7 +23,6 @@ package cmd
 
 import (
 	"errors"
-	"fmt"
 	"os"
 
 	"github.com/k1LoW/frgm/config"
@@ -37,29 +36,29 @@ var configCmd = &cobra.Command{
 	Short: "Get and set frgm config",
 	Long:  `Get and set frgm config.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		err := runConfig(args)
+		err := runConfig(cmd, args)
 		if err != nil {
-			cmd.PrintErrln(err)
+			printErrln(cmd, err)
 			os.Exit(1)
 		}
 	},
 }
 
-func runConfig(args []string) error {
+func runConfig(cmd *cobra.Command, args []string) error {
 	switch {
 	case len(args) == 0:
 		for k, v := range viper.AllSettings() {
 			switch v := v.(type) {
 			case map[string]interface{}:
 				for kk, vv := range v {
-					fmt.Printf("%s.%s=%v\n", k, kk, vv)
+					cmd.Printf("%s.%s=%v\n", k, kk, vv)
 				}
 			default:
-				fmt.Printf("%s=%v\n", k, v)
+				cmd.Printf("%s=%v\n", k, v)
 			}
 		}
 	case len(args) == 1:
-		fmt.Printf("%v\n", viper.Get(args[0]))
+		cmd.Printf("%v\n", viper.Get(args[0]))
 	case len(args) == 2:
 		if err := config.Set(args[0], args[1]); err != nil {
 			return err
