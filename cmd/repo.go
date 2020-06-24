@@ -22,35 +22,73 @@ THE SOFTWARE.
 package cmd
 
 import (
-	"fmt"
+	"os"
+	"os/exec"
+	"path/filepath"
+	"strings"
 
+	"github.com/Songmu/prompter"
+	"github.com/k1LoW/frgm/config"
 	"github.com/spf13/cobra"
+	giturl "github.com/whilp/git-urls"
+	"github.com/x-motemen/ghq/cmdutil"
 )
 
 // repoCmd represents the repo command
 var repoCmd = &cobra.Command{
 	Use:   "repo",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "Manage snippets repositories",
+	Long:  `Manage snippets repositories.`,
 }
 
 var repoAddCmd = &cobra.Command{
-	Use:   "add",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Use:   "add [REPO_URL]",
+	Short: "Add snippets repository to 'global.snippets_path'",
+	Long:  `Add snippets repository 'global.snippets_path'.`,
+	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("repo add called")
+		repoURL := args[0]
+		rootPath := config.GetString("global.snippets_path")
+		_, err := exec.LookPath("ghq")
+		if err == nil && prompter.YN("Do you use ghq?", true) {
+			_ = addUsingGhq(cmd, repoURL, rootPath)
+			return
+		}
+		_ = addDirect(cmd, repoURL, rootPath)
 	},
+}
+
+func addDirect(cmd *cobra.Command, repoURL, rootPath string) error {
+	u, err := giturl.Parse(repoURL)
+	if err != nil {
+		printFatalln(cmd, err)
+	}
+	repoPath := filepath.Join(rootPath, strings.ReplaceAll(filepath.Join(u.Host, strings.TrimRight(u.Path, ".git")), "/", "__"))
+	if err := os.MkdirAll(repoPath, 0755); err != nil {
+		printFatalln(cmd, err)
+	}
+	return cmdutil.Run("git", "clone", repoURL, repoPath)
+}
+
+func addUsingGhq(cmd *cobra.Command, repoURL, rootPath string) error {
+	u, err := giturl.Parse(repoURL)
+	if err != nil {
+		printFatalln(cmd, err)
+	}
+	_ = cmdutil.Run("ghq", "get", repoURL)
+	o, err := exec.Command("ghq", "list", "--full-path").Output()
+	if err != nil {
+		return err
+	}
+	repoPath := filepath.Join(rootPath, strings.ReplaceAll(filepath.Join(u.Host, strings.TrimRight(u.Path, ".git")), "/", "__"))
+	var ghqPath string
+	for _, path := range strings.Split(string(o), "\n") {
+		if strings.Contains(path, filepath.Join(u.Host, strings.TrimRight(u.Path, ".git"))) {
+			ghqPath = path
+			break
+		}
+	}
+	return cmdutil.Run("ln", "-s", ghqPath, repoPath)
 }
 
 func init() {

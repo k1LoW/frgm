@@ -15,5 +15,8 @@ require (
 	github.com/sabhiram/go-gitignore v0.0.0-20180611051255-d3107576ba94
 	github.com/spf13/cobra v1.0.0
 	github.com/spf13/viper v1.7.0
+	github.com/whilp/git-urls v0.0.0-20191001220047-6db9661140c0
+	github.com/x-motemen/ghq v1.1.2
+	golang.org/x/tools v0.0.0-20200624060801-dcbf2a9ed15d // indirect
 	gopkg.in/jmhodges/yaml.v2 v2.2.5
 )
