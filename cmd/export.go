@@ -23,7 +23,6 @@ package cmd
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/k1LoW/frgm/config"
 	"github.com/k1LoW/frgm/format"
@@ -42,8 +41,7 @@ var exportCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		err := runExport(args)
 		if err != nil {
-			printErrln(cmd, err)
-			os.Exit(1)
+			printFatalln(cmd, err)
 		}
 	},
 }

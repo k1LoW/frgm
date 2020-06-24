@@ -22,7 +22,6 @@ THE SOFTWARE.
 package cmd
 
 import (
-	"os"
 	"strings"
 
 	"github.com/k1LoW/frgm/config"
@@ -40,8 +39,7 @@ var listCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		err := runList(cmd, args)
 		if err != nil {
-			printErrln(cmd, err)
-			os.Exit(1)
+			printFatalln(cmd, err)
 		}
 	},
 }

@@ -48,8 +48,7 @@ func Execute() {
 	rootCmd.SetOut(os.Stdout)
 	rootCmd.SetErr(os.Stderr)
 	if err := rootCmd.Execute(); err != nil {
-		printErrln(rootCmd, err)
-		os.Exit(1)
+		printFatalln(rootCmd, err)
 	}
 }
 
@@ -60,6 +59,16 @@ func printErrln(c *cobra.Command, i ...interface{}) {
 
 func printErrf(c *cobra.Command, format string, i ...interface{}) {
 	c.PrintErr(fmt.Sprintf(format, i...))
+}
+
+func printFatalln(c *cobra.Command, i ...interface{}) {
+	printErrln(c, i...)
+	os.Exit(1)
+}
+
+func printFatalf(c *cobra.Command, format string, i ...interface{}) {
+	printErrf(c, format, i...)
+	os.Exit(1)
 }
 
 func init() {

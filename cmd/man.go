@@ -52,8 +52,7 @@ var manCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		err := runMan(args)
 		if err != nil {
-			printErrln(cmd, err)
-			os.Exit(1)
+			printFatalln(cmd, err)
 		}
 	},
 }

@@ -22,8 +22,6 @@ THE SOFTWARE.
 package cmd
 
 import (
-	"os"
-
 	"github.com/k1LoW/frgm/config"
 	"github.com/k1LoW/frgm/format/frgm"
 	"github.com/spf13/cobra"
@@ -37,8 +35,7 @@ var fillCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		err := runFill(args)
 		if err != nil {
-			printErrln(cmd, err)
-			os.Exit(1)
+			printFatalln(cmd, err)
 		}
 	},
 }

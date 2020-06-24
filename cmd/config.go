@@ -23,7 +23,6 @@ package cmd
 
 import (
 	"errors"
-	"os"
 
 	"github.com/k1LoW/frgm/config"
 	"github.com/spf13/cobra"
@@ -38,8 +37,7 @@ var configCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		err := runConfig(cmd, args)
 		if err != nil {
-			printErrln(cmd, err)
-			os.Exit(1)
+			printFatalln(cmd, err)
 		}
 	},
 }
