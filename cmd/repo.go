@@ -22,6 +22,7 @@ THE SOFTWARE.
 package cmd
 
 import (
+	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -64,6 +65,9 @@ func addDirect(cmd *cobra.Command, repoURL, rootPath string) error {
 		printFatalln(cmd, err)
 	}
 	repoPath := filepath.Join(rootPath, strings.ReplaceAll(filepath.Join(u.Host, strings.TrimRight(u.Path, ".git")), "/", "__"))
+	if _, err := os.Stat(repoPath); err == nil {
+		printFatalln(cmd, fmt.Errorf("%s already exists", repoPath))
+	}
 	if err := os.MkdirAll(repoPath, 0750); err != nil {
 		printFatalln(cmd, err)
 	}
@@ -75,12 +79,15 @@ func addUsingGhq(cmd *cobra.Command, repoURL, rootPath string) error {
 	if err != nil {
 		printFatalln(cmd, err)
 	}
+	repoPath := filepath.Join(rootPath, strings.ReplaceAll(filepath.Join(u.Host, strings.TrimRight(u.Path, ".git")), "/", "__"))
+	if _, err := os.Stat(repoPath); err == nil {
+		printFatalln(cmd, fmt.Errorf("%s already exists", repoPath))
+	}
 	_ = cmdutil.Run("ghq", "get", repoURL)
 	o, err := exec.Command("ghq", "list", "--full-path").Output()
 	if err != nil {
 		return err
 	}
-	repoPath := filepath.Join(rootPath, strings.ReplaceAll(filepath.Join(u.Host, strings.TrimRight(u.Path, ".git")), "/", "__"))
 	var ghqPath string
 	for _, path := range strings.Split(string(o), "\n") {
 		if strings.Contains(path, filepath.Join(u.Host, strings.TrimRight(u.Path, ".git"))) {
