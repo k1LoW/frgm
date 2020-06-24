@@ -39,7 +39,7 @@ var editCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		err := runEdit(args)
 		if err != nil {
-			cmd.PrintErrln(err)
+			printErrln(cmd, err)
 			os.Exit(1)
 		}
 	},

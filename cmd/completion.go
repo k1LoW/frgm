@@ -64,7 +64,7 @@ frgm completion zsh > $fpath[1]/_frgm
 		} else {
 			o, err = os.Create(out)
 			if err != nil {
-				cmd.PrintErrln(err)
+				printErrln(cmd, err)
 				os.Exit(1)
 			}
 		}
@@ -73,18 +73,18 @@ frgm completion zsh > $fpath[1]/_frgm
 		case "bash":
 			if err := rootCmd.GenBashCompletion(o); err != nil {
 				_ = o.Close()
-				cmd.PrintErrln(err)
+				printErrln(cmd, err)
 				os.Exit(1)
 			}
 		case "zsh":
 			if err := rootCmd.GenZshCompletion(o); err != nil {
 				_ = o.Close()
-				cmd.PrintErrln(err)
+				printErrln(cmd, err)
 				os.Exit(1)
 			}
 		}
 		if err := o.Close(); err != nil {
-			cmd.PrintErrln(err)
+			printErrln(cmd, err)
 			os.Exit(1)
 		}
 	},

@@ -22,8 +22,6 @@ THE SOFTWARE.
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/k1LoW/frgm/version"
 	"github.com/spf13/cobra"
 )
@@ -34,7 +32,7 @@ var versionCmd = &cobra.Command{
 	Short: "Print frgm version",
 	Long:  `Print frgm version.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println(version.Version)
+		cmd.Println(version.Version)
 	},
 }
 
