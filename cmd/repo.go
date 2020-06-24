@@ -64,7 +64,7 @@ func addDirect(cmd *cobra.Command, repoURL, rootPath string) error {
 		printFatalln(cmd, err)
 	}
 	repoPath := filepath.Join(rootPath, strings.ReplaceAll(filepath.Join(u.Host, strings.TrimRight(u.Path, ".git")), "/", "__"))
-	if err := os.MkdirAll(repoPath, 0755); err != nil {
+	if err := os.MkdirAll(repoPath, 0750); err != nil {
 		printFatalln(cmd, err)
 	}
 	return cmdutil.Run("git", "clone", repoURL, repoPath)
