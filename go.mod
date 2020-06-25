@@ -17,6 +17,5 @@ require (
 	github.com/spf13/viper v1.7.0
 	github.com/whilp/git-urls v0.0.0-20191001220047-6db9661140c0
 	github.com/x-motemen/ghq v1.1.2
-	golang.org/x/tools v0.0.0-20200624060801-dcbf2a9ed15d // indirect
 	gopkg.in/jmhodges/yaml.v2 v2.2.5
 )
