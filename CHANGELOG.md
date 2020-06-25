@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.8.0](https://github.com/k1LoW/frgm/compare/v0.7.2...v0.8.0) (2020-06-25)
+
+* Add `frgm repo add` [#24](https://github.com/k1LoW/frgm/pull/24) ([k1LoW](https://github.com/k1LoW))
+
 ## [v0.7.2](https://github.com/k1LoW/frgm/compare/v0.7.1...v0.7.2) (2020-06-01)
 
 * Fix parse error complex content [#23](https://github.com/k1LoW/frgm/pull/23) ([k1LoW](https://github.com/k1LoW))
