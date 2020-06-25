@@ -129,6 +129,14 @@ snippets:
   content: ping 8.8.8.8
 ```
 
+### Add snippets repository ( `frgm repo add` )
+
+Add frgm snippets repository.
+
+``` console
+$ frgm repo add https://github.com/k1LoW/sample-frgm-snippets.git
+```
+
 ### Import * snippets ( `frgm import` )
 
 #### Import [Alfred](https://www.alfredapp.com/) snippets
