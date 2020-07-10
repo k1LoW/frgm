@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.8.2](https://github.com/k1LoW/frgm/compare/v0.8.1...v0.8.2) (2020-07-10)
+
+* Fix multi-line command support (#25) [#26](https://github.com/k1LoW/frgm/pull/26) ([k1LoW](https://github.com/k1LoW))
+
 ## [v0.8.1](https://github.com/k1LoW/frgm/compare/v0.8.0...v0.8.1) (2020-07-10)
 
 * `frgm list` supports a multi-line command  [#25](https://github.com/k1LoW/frgm/pull/25) ([k1LoW](https://github.com/k1LoW))
