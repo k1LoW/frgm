@@ -25,7 +25,7 @@ func New(format string) *List {
 
 func (f *List) Encode(out io.Writer, snippets snippet.Snippets) error {
 	for _, s := range snippets {
-		r := strings.NewReplacer(":uid", s.UID, ":group", s.Group, ":name", s.Name, ":content", nlr.Replace(s.Content), ":labels", strings.Join(s.Labels, " "), ":desc", s.Desc, ":output", s.Output)
+		r := strings.NewReplacer(":uid", s.UID, ":group", s.Group, ":name", s.Name, ":content", strings.TrimRight(nlr.Replace(s.Content), "\n"), ":labels", strings.Join(s.Labels, " "), ":desc", s.Desc, ":output", s.Output)
 		_, err := fmt.Fprintln(out, r.Replace(f.format))
 		if err != nil {
 			return err

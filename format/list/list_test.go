@@ -43,6 +43,19 @@ world`, "hello world", "show following\nhello world\n", []string{"a", "b"}),
 			want: `echo hello world # hello world [my-group a b]
 `,
 		},
+		{
+			format: DefaultFormat,
+			snippets: snippet.Snippets{
+				snippet.New("frgm-de1fbe2f7573", "my-group", "hello world", `echo hello \
+world
+
+
+
+`, "hello world", "show following\nhello world\n", []string{"a", "b"}),
+			},
+			want: `echo hello world # hello world [my-group a b]
+`,
+		},
 	}
 
 	for _, tt := range tests {
