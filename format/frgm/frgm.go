@@ -9,7 +9,6 @@ import (
 	"os"
 	"path/filepath"
 
-	// "github.com/goccy/go-yaml"
 	"github.com/k1LoW/frgm/format"
 	"github.com/k1LoW/frgm/snippet"
 	"github.com/karrick/godirwalk"
