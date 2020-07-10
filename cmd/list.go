@@ -22,10 +22,11 @@ THE SOFTWARE.
 package cmd
 
 import (
-	"strings"
+	"os"
 
 	"github.com/k1LoW/frgm/config"
 	"github.com/k1LoW/frgm/format/frgm"
+	"github.com/k1LoW/frgm/format/list"
 	"github.com/spf13/cobra"
 )
 
@@ -51,14 +52,11 @@ func runList(cmd *cobra.Command, args []string) error {
 	if err != nil {
 		return err
 	}
-	for _, s := range snippets {
-		r := strings.NewReplacer(":uid", s.UID, ":group", s.Group, ":name", s.Name, ":content", s.Content, ":labels", strings.Join(s.Labels, " "), ":desc", s.Desc, ":output", s.Output)
-		cmd.Println(r.Replace(listFormat))
-	}
-	return nil
+	encoder := list.New(listFormat)
+	return encoder.Encode(os.Stdout, snippets)
 }
 
 func init() {
 	rootCmd.AddCommand(listCmd)
-	listCmd.Flags().StringVarP(&listFormat, "format", "", ":content # :name [:group :labels]", "list format")
+	listCmd.Flags().StringVarP(&listFormat, "format", "", list.DefaultFormat, "list format")
 }
