@@ -48,7 +48,7 @@ var convertCmd = &cobra.Command{
 			printFatalln(cmd, err)
 		}
 		if (fi.Mode() & os.ModeCharDevice) != 0 {
-			return errors.New("ghput need STDIN. Please use pipe")
+			return errors.New("frgm need STDIN. Please use pipe")
 		}
 		return nil
 	},
