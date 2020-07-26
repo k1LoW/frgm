@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.8.3](https://github.com/k1LoW/frgm/compare/v0.8.2...v0.8.3) (2020-07-26)
+
+* Update completion [#27](https://github.com/k1LoW/frgm/pull/27) ([k1LoW](https://github.com/k1LoW))
+
 ## [v0.8.2](https://github.com/k1LoW/frgm/compare/v0.8.1...v0.8.2) (2020-07-10)
 
 * Fix multi-line command support (#25) [#26](https://github.com/k1LoW/frgm/pull/26) ([k1LoW](https://github.com/k1LoW))
