@@ -33,6 +33,7 @@ depsdev:
 	go get github.com/securego/gosec/cmd/gosec
 
 prerelease:
+	git pull origin --tag
 	ghch -w -N ${VER}
 	gocredits . > CREDITS
 	cat _EXTRA_CREDITS >> CREDITS
