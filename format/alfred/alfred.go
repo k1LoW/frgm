@@ -151,6 +151,9 @@ func (a *Alfred) Export(snippets snippet.Snippets, dest string) error {
 		if err := encoder.Encode(as); err != nil {
 			return err
 		}
+		if err := file.Close(); err != nil {
+			return err
+		}
 	}
 	return nil
 }
