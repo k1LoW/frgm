@@ -35,7 +35,7 @@ depsdev:
 prerelease:
 	git pull origin --tag
 	ghch -w -N ${VER}
-	gocredits . > CREDITS
+	gocredits -skip-missing . > CREDITS
 	cat _EXTRA_CREDITS >> CREDITS
 	git add CHANGELOG.md CREDITS
 	git commit -m'Bump up version number'
