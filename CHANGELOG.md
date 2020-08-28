@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.8.4](https://github.com/k1LoW/frgm/compare/v0.8.3...v0.8.4) (2020-08-28)
+
+* Fix `too many open files` [#28](https://github.com/k1LoW/frgm/pull/28) ([k1LoW](https://github.com/k1LoW))
+
 ## [v0.8.3](https://github.com/k1LoW/frgm/compare/v0.8.2...v0.8.3) (2020-07-26)
 
 * Update completion [#27](https://github.com/k1LoW/frgm/pull/27) ([k1LoW](https://github.com/k1LoW))
