@@ -23,6 +23,7 @@ package cmd
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -56,6 +57,35 @@ var repoAddCmd = &cobra.Command{
 			return
 		}
 		_ = addDirect(cmd, repoURL, rootPath)
+	},
+}
+
+var repoPullCmd = &cobra.Command{
+	Use:   "pull",
+	Short: "Execute 'git pull' in all snippets repositories",
+	Long:  `Execute 'git pull' in all snippets repositories.`,
+	Args:  cobra.NoArgs,
+	Run: func(cmd *cobra.Command, args []string) {
+		rootPath := config.GetString("global.snippets_path")
+		files, err := ioutil.ReadDir(rootPath)
+		if err != nil {
+			printFatalln(cmd, err)
+		}
+		for _, d := range files {
+			dotGitDir := filepath.Join(rootPath, d.Name(), ".git")
+			if _, err := os.Stat(dotGitDir); err != nil {
+				continue
+			}
+			repoPath := filepath.Join(rootPath, d.Name())
+			cmd.Println(fmt.Sprintf("Pull %s", repoPath))
+			c := exec.Command("git", "pull")
+			c.Stdout = os.Stderr
+			c.Stderr = os.Stderr
+			c.Dir = repoPath
+			if err := cmdutil.RunCommand(c, true); err != nil {
+				printFatalln(cmd, err)
+			}
+		}
 	},
 }
 
@@ -101,4 +131,5 @@ func addUsingGhq(cmd *cobra.Command, repoURL, rootPath string) error {
 func init() {
 	rootCmd.AddCommand(repoCmd)
 	repoCmd.AddCommand(repoAddCmd)
+	repoCmd.AddCommand(repoPullCmd)
 }

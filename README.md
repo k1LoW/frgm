@@ -137,6 +137,14 @@ Add frgm snippets repository.
 $ frgm repo add https://github.com/k1LoW/sample-frgm-snippets.git
 ```
 
+### Execute `git pull` in all snippets repositories ( `frgm repo pull` )
+
+Execute `git pull` in all snippets repositories.
+
+``` console
+$ frgm repo pull
+```
+
 ### Import * snippets ( `frgm import` )
 
 #### Import [Alfred](https://www.alfredapp.com/) snippets
