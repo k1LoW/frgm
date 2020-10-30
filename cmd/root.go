@@ -22,7 +22,6 @@ THE SOFTWARE.
 package cmd
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/k1LoW/frgm/config"
@@ -36,15 +35,12 @@ var (
 	rmDest     bool
 )
 
-// rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "frgm",
 	Short: "frgm is a meta snippet (fragment) manager",
 	Long:  `frgm is a meta snippet (fragment) manager.`,
 }
 
-// Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
 	rootCmd.SetOut(os.Stdout)
 	rootCmd.SetErr(os.Stderr)
@@ -53,22 +49,8 @@ func Execute() {
 	}
 }
 
-// https://github.com/spf13/cobra/pull/894
-func printErrln(c *cobra.Command, i ...interface{}) {
-	c.PrintErr(fmt.Sprintln(i...))
-}
-
-func printErrf(c *cobra.Command, format string, i ...interface{}) {
-	c.PrintErr(fmt.Sprintf(format, i...))
-}
-
 func printFatalln(c *cobra.Command, i ...interface{}) {
-	printErrln(c, i...)
-	os.Exit(1)
-}
-
-func printFatalf(c *cobra.Command, format string, i ...interface{}) {
-	printErrf(c, format, i...)
+	c.PrintErrln(i)
 	os.Exit(1)
 }
 
