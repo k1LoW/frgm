@@ -36,15 +36,10 @@ var importCmd = &cobra.Command{
 	Use:   "import",
 	Short: "Import other app snippets as frgm snippets",
 	Long:  `Import other app snippets as frgm snippets.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		err := runImport(args)
-		if err != nil {
-			printFatalln(cmd, err)
-		}
-	},
+	RunE:  runImport,
 }
 
-func runImport(args []string) error {
+func runImport(cmd *cobra.Command, args []string) error {
 	destPath = config.GetString("global.snippets_path")
 	var (
 		loader   format.Loader

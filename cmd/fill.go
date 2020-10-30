@@ -32,15 +32,10 @@ var fillCmd = &cobra.Command{
 	Use:   "fill",
 	Short: "Fill in the blanks in current snippets",
 	Long:  `Fill in the blanks in current snippets.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		err := runFill(args)
-		if err != nil {
-			printFatalln(cmd, err)
-		}
-	},
+	RunE:  runFill,
 }
 
-func runFill(args []string) error {
+func runFill(cmd *cobra.Command, args []string) error {
 	srcPath = config.GetString("global.snippets_path")
 	exporter := frgm.New(config.GetStringSlice("global.ignore"))
 	snippets, err := exporter.Load(srcPath)

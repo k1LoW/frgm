@@ -37,12 +37,7 @@ var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List snippets",
 	Long:  `List snippets.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		err := runList(cmd, args)
-		if err != nil {
-			printFatalln(cmd, err)
-		}
-	},
+	RunE:  runList,
 }
 
 func runList(cmd *cobra.Command, args []string) error {

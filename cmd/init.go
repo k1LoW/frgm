@@ -40,12 +40,7 @@ var initCmd = &cobra.Command{
 	Use:   "init",
 	Short: "Initialize frgm",
 	Long:  `Initialize frgm.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		err := runInit(cmd, args)
-		if err != nil {
-			printFatalln(cmd, err)
-		}
-	},
+	RunE:  runInit,
 }
 
 func runInit(cmd *cobra.Command, args []string) error {

@@ -36,15 +36,10 @@ var editCmd = &cobra.Command{
 	Use:   "edit",
 	Short: "Edit global.snippets_path using $EDITOR",
 	Long:  `Edit global.snippets_path using $EDITOR.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		err := runEdit(args)
-		if err != nil {
-			printFatalln(cmd, err)
-		}
-	},
+	RunE:  runEdit,
 }
 
-func runEdit(args []string) error {
+func runEdit(cmd *cobra.Command, args []string) error {
 	e := os.Getenv("EDITOR")
 	if e == "" {
 		return errors.New("$EDITOR is not set")

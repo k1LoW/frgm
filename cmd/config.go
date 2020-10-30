@@ -34,12 +34,7 @@ var configCmd = &cobra.Command{
 	Use:   "config",
 	Short: "Get and set frgm config",
 	Long:  `Get and set frgm config.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		err := runConfig(cmd, args)
-		if err != nil {
-			printFatalln(cmd, err)
-		}
-	},
+	RunE:  runConfig,
 }
 
 func runConfig(cmd *cobra.Command, args []string) error {

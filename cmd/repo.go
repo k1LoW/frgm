@@ -48,15 +48,14 @@ var repoAddCmd = &cobra.Command{
 	Short: "Add snippets repository to 'global.snippets_path'",
 	Long:  `Add snippets repository 'global.snippets_path'.`,
 	Args:  cobra.ExactArgs(1),
-	Run: func(cmd *cobra.Command, args []string) {
+	RunE: func(cmd *cobra.Command, args []string) error {
 		repoURL := args[0]
 		rootPath := config.GetString("global.snippets_path")
 		_, err := exec.LookPath("ghq")
 		if err == nil && prompter.YN("Do you use ghq?", true) {
-			_ = addUsingGhq(cmd, repoURL, rootPath)
-			return
+			return addUsingGhq(cmd, repoURL, rootPath)
 		}
-		_ = addDirect(cmd, repoURL, rootPath)
+		return addDirect(cmd, repoURL, rootPath)
 	},
 }
 
@@ -65,11 +64,11 @@ var repoPullCmd = &cobra.Command{
 	Short: "Execute 'git pull' in all snippets repositories",
 	Long:  `Execute 'git pull' in all snippets repositories.`,
 	Args:  cobra.NoArgs,
-	Run: func(cmd *cobra.Command, args []string) {
+	RunE: func(cmd *cobra.Command, args []string) error {
 		rootPath := config.GetString("global.snippets_path")
 		files, err := ioutil.ReadDir(rootPath)
 		if err != nil {
-			printFatalln(cmd, err)
+			return err
 		}
 		for _, d := range files {
 			dotGitDir := filepath.Join(rootPath, d.Name(), ".git")
@@ -83,23 +82,24 @@ var repoPullCmd = &cobra.Command{
 			c.Stderr = os.Stderr
 			c.Dir = repoPath
 			if err := cmdutil.RunCommand(c, true); err != nil {
-				printFatalln(cmd, err)
+				return err
 			}
 		}
+		return nil
 	},
 }
 
 func addDirect(cmd *cobra.Command, repoURL, rootPath string) error {
 	u, err := giturl.Parse(repoURL)
 	if err != nil {
-		printFatalln(cmd, err)
+		return err
 	}
 	repoPath := filepath.Join(rootPath, strings.ReplaceAll(filepath.Join(u.Host, strings.TrimRight(u.Path, ".git")), "/", "__"))
 	if _, err := os.Stat(repoPath); err == nil {
-		printFatalln(cmd, fmt.Errorf("%s already exists", repoPath))
+		return fmt.Errorf("%s already exists", repoPath)
 	}
 	if err := os.MkdirAll(repoPath, 0750); err != nil {
-		printFatalln(cmd, err)
+		return err
 	}
 	return cmdutil.Run("git", "clone", repoURL, repoPath)
 }
@@ -107,11 +107,11 @@ func addDirect(cmd *cobra.Command, repoURL, rootPath string) error {
 func addUsingGhq(cmd *cobra.Command, repoURL, rootPath string) error {
 	u, err := giturl.Parse(repoURL)
 	if err != nil {
-		printFatalln(cmd, err)
+		return err
 	}
 	repoPath := filepath.Join(rootPath, strings.ReplaceAll(filepath.Join(u.Host, strings.TrimRight(u.Path, ".git")), "/", "__"))
 	if _, err := os.Stat(repoPath); err == nil {
-		printFatalln(cmd, fmt.Errorf("%s already exists", repoPath))
+		return fmt.Errorf("%s already exists", repoPath)
 	}
 	_ = cmdutil.Run("ghq", "get", repoURL)
 	o, err := exec.Command("ghq", "list", "--full-path").Output()

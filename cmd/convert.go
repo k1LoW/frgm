@@ -45,22 +45,17 @@ var convertCmd = &cobra.Command{
 	Args: func(cmd *cobra.Command, args []string) error {
 		fi, err := os.Stdin.Stat()
 		if err != nil {
-			printFatalln(cmd, err)
+			return err
 		}
 		if (fi.Mode() & os.ModeCharDevice) != 0 {
 			return errors.New("frgm need STDIN. Please use pipe")
 		}
 		return nil
 	},
-	Run: func(cmd *cobra.Command, args []string) {
-		err := runConvert(args)
-		if err != nil {
-			printFatalln(cmd, err)
-		}
-	},
+	RunE: runConvert,
 }
 
-func runConvert(args []string) error {
+func runConvert(cmd *cobra.Command, args []string) error {
 	var (
 		decoder format.Decoder
 		encoder format.Encoder

@@ -41,15 +41,10 @@ var exportCmd = &cobra.Command{
 	Use:   "export",
 	Short: "Export frgm snippets as other app snippets",
 	Long:  `Export frgm snippets as othre app snippets.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		err := runExport(args)
-		if err != nil {
-			printFatalln(cmd, err)
-		}
-	},
+	RunE:  runExport,
 }
 
-func runExport(args []string) error {
+func runExport(cmd *cobra.Command, args []string) error {
 	var (
 		loader   format.Loader
 		exporter format.Exporter

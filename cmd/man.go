@@ -49,15 +49,10 @@ var manCmd = &cobra.Command{
 		}
 		return nil
 	},
-	Run: func(cmd *cobra.Command, args []string) {
-		err := runMan(args)
-		if err != nil {
-			printFatalln(cmd, err)
-		}
-	},
+	RunE: runMan,
 }
 
-func runMan(args []string) error {
+func runMan(cmd *cobra.Command, args []string) error {
 	var uid string
 	if len(args) == 1 {
 		uid = args[0]
