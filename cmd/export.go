@@ -23,6 +23,9 @@ package cmd
 
 import (
 	"fmt"
+	"io/ioutil"
+	"os"
+	"path/filepath"
 
 	"github.com/k1LoW/frgm/config"
 	"github.com/k1LoW/frgm/format"
@@ -77,6 +80,18 @@ func runExport(args []string) error {
 		return err
 	}
 
+	if rmDest {
+		files, err := ioutil.ReadDir(destPath)
+		if err != nil {
+			return err
+		}
+		for _, f := range files {
+			if err := os.RemoveAll(filepath.Join(destPath, f.Name())); err != nil {
+				return err
+			}
+		}
+	}
+
 	err = exporter.Export(snippets, destPath)
 	if err != nil {
 		return err
@@ -91,4 +106,5 @@ func init() {
 	exportCmd.Flags().StringVarP(&srcPath, "from", "f", config.GetString("global.snippets_path"), "frgm snippets path")
 	exportCmd.Flags().StringVarP(&destPath, "to", "t", "", "export snippets path")
 	exportCmd.Flags().StringVarP(&formatType, "format", "T", "alfred", "export format of snippet")
+	exportCmd.Flags().BoolVarP(&rmDest, "rm", "", false, "remove all files in export snippets path before exporting snippets")
 }
