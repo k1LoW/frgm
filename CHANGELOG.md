@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.10.0](https://github.com/k1LoW/frgm/compare/v0.9.0...v0.10.0) (2020-10-31)
+
+* Add `--rm` option [#30](https://github.com/k1LoW/frgm/pull/30) ([k1LoW](https://github.com/k1LoW))
+
 ## [v0.9.0](https://github.com/k1LoW/frgm/compare/v0.8.4...v0.9.0) (2020-09-30)
 
 * Add `frgm repo pull` [#29](https://github.com/k1LoW/frgm/pull/29) ([k1LoW](https://github.com/k1LoW))
