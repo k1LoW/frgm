@@ -109,7 +109,7 @@ func (p *Pet) Export(snippets snippet.Snippets, dest string) error {
 			Tag:         s.Labels,
 		})
 	}
-	file, err := os.OpenFile(dest, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0600)
+	file, err := os.OpenFile(filepath.Clean(dest), os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0600)
 	if err != nil {
 		return err
 	}
