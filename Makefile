@@ -27,13 +27,13 @@ build:
 	packr2 clean
 
 depsdev:
-	go get github.com/gobuffalo/packr/v2/packr2
-	go get github.com/Songmu/ghch/cmd/ghch
-	go get github.com/Songmu/gocredits/cmd/gocredits
-	go get github.com/securego/gosec/cmd/gosec
+	go install github.com/Songmu/ghch/cmd/ghch@v0.10.2
+	go install github.com/Songmu/gocredits/cmd/gocredits@v0.2.0
+	go install github.com/securego/gosec/v2/cmd/gosec@v2.8.1
+	go install github.com/gobuffalo/packr/v2/packr2@v2.8.3
 
 prerelease:
-	git pull origin --tag
+	git push origin main --tag
 	ghch -w -N ${VER}
 	gocredits -skip-missing . > CREDITS
 	cat _EXTRA_CREDITS >> CREDITS
@@ -42,6 +42,7 @@ prerelease:
 	git tag ${VER}
 
 release:
+	git push origin main --tag
 	goreleaser --rm-dist
 
 .PHONY: default test
