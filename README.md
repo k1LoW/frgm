@@ -4,7 +4,7 @@
 
 <p align="center">
 <br>
-<img src="https://github.com/k1LoW/frgm/raw/master/img/frgm.png" width="900" alt="frgm">
+<img src="https://github.com/k1LoW/frgm/raw/main/img/frgm.png" width="900" alt="frgm">
 <br>
 </p>
 
