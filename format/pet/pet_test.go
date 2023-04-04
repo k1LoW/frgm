@@ -127,7 +127,7 @@ func TestExport(t *testing.T) {
 	for _, tt := range tests {
 		pet := New()
 		dest := filepath.Join(tmp, "pet.toml")
-		if err := os.WriteFile(dest, []byte(tt.current), 0644); err != nil {
+		if err := os.WriteFile(dest, []byte(tt.current), 0644); err != nil { //nolint
 			t.Fatal(err)
 		}
 		if err := pet.Export(tt.in, dest); err != nil {
