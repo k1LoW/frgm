@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -105,7 +104,7 @@ func (a *Alfred) Load(src string) (snippet.Snippets, error) {
 
 func (a *Alfred) Decode(in io.Reader, group string) (snippet.Snippets, error) {
 	snippets := snippet.Snippets{}
-	buf, err := ioutil.ReadAll(in)
+	buf, err := io.ReadAll(in)
 	if err != nil {
 		return snippets, err
 	}

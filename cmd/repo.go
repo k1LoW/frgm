@@ -23,7 +23,6 @@ package cmd
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -66,7 +65,7 @@ var repoPullCmd = &cobra.Command{
 	Args:  cobra.NoArgs,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		rootPath := config.GetString("global.snippets_path")
-		files, err := ioutil.ReadDir(rootPath)
+		files, err := os.ReadDir(rootPath)
 		if err != nil {
 			return err
 		}

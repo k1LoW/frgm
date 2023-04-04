@@ -5,7 +5,6 @@ import (
 	"crypto/sha256"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 
@@ -126,7 +125,7 @@ func (f *Frgm) LoadSets(src string) ([]*snippet.SnippetSet, error) {
 
 func (f *Frgm) LoadSet(in io.Reader, defaultGroup string) (*snippet.SnippetSet, error) {
 	set := &snippet.SnippetSet{}
-	buf, err := ioutil.ReadAll(in)
+	buf, err := io.ReadAll(in)
 	if err != nil {
 		return set, err
 	}

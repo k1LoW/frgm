@@ -2,7 +2,6 @@ package md
 
 import (
 	"bytes"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
@@ -41,7 +40,7 @@ func TestWrite(t *testing.T) {
 		if err := md.Write(got, tt.sets); err != nil {
 			t.Fatal(err)
 		}
-		want, err := ioutil.ReadFile(filepath.Join(testdataDir(), tt.goldenPath))
+		want, err := os.ReadFile(filepath.Join(testdataDir(), tt.goldenPath))
 		if err != nil {
 			t.Fatal(err)
 		}

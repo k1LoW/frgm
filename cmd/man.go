@@ -22,7 +22,7 @@ THE SOFTWARE.
 package cmd
 
 import (
-	"io/ioutil"
+	"io"
 	"os"
 	"strings"
 	"text/template"
@@ -57,7 +57,7 @@ func runMan(cmd *cobra.Command, args []string) error {
 	if len(args) == 1 {
 		uid = args[0]
 	} else {
-		stdin, err := ioutil.ReadAll(os.Stdin)
+		stdin, err := io.ReadAll(os.Stdin)
 		if err != nil {
 			return err
 		}

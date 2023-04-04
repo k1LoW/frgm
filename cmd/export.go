@@ -23,7 +23,6 @@ package cmd
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 
@@ -76,7 +75,7 @@ func runExport(cmd *cobra.Command, args []string) error {
 	}
 
 	if rmDest {
-		files, err := ioutil.ReadDir(destPath)
+		files, err := os.ReadDir(destPath)
 		if err != nil {
 			return err
 		}
