@@ -38,29 +38,13 @@ archives:
     - CREDITS
     - README.md
     - CHANGELOG.md
+  rlcp: true
 checksum:
   name_template: 'checksums.txt'
 snapshot:
   name_template: "{{ .Version }}-next"
 changelog:
   skip: true
-brews:
--
-  name: frgm
-  github:
-    owner: k1LoW
-    name: homebrew-tap
-  commit_author:
-    name: k1LoW
-    email: k1lowxb@gmail.com
-  homepage: https://github.com/k1LoW/frgm
-  description: frgm is a meta snippet (fragment) manager.
-  install: |
-    system './frgm', 'completion', 'bash', '--out', 'frgm.bash'
-    system './frgm', 'completion', 'zsh', '--out', 'frgm.zsh'
-    bin.install 'frgm'
-    bash_completion.install 'frgm.bash' => 'frgm'
-    zsh_completion.install 'frgm.zsh' => '_frgm'
 nfpms:
   -
     id: frgm-nfpms
