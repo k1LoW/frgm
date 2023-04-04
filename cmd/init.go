@@ -23,7 +23,6 @@ package cmd
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 
@@ -65,7 +64,7 @@ func runInit(cmd *cobra.Command, args []string) error {
 				if err := os.MkdirAll(filepath.Dir(path), 0700); err != nil {
 					return err
 				}
-				if err := ioutil.WriteFile(path, []byte("---\nsnippets: []\n"), 0600); err != nil {
+				if err := os.WriteFile(path, []byte("---\nsnippets: []\n"), 0600); err != nil {
 					return err
 				}
 			}

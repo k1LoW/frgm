@@ -2,7 +2,6 @@ package pet
 
 import (
 	"bytes"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
@@ -119,7 +118,7 @@ func TestExport(t *testing.T) {
 		},
 	}
 
-	tmp, err := ioutil.TempDir("", "frgm")
+	tmp, err := os.MkdirTemp("", "frgm")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -128,13 +127,13 @@ func TestExport(t *testing.T) {
 	for _, tt := range tests {
 		pet := New()
 		dest := filepath.Join(tmp, "pet.toml")
-		if err := ioutil.WriteFile(dest, []byte(tt.current), 0644); err != nil {
+		if err := os.WriteFile(dest, []byte(tt.current), 0644); err != nil { //nolint
 			t.Fatal(err)
 		}
 		if err := pet.Export(tt.in, dest); err != nil {
 			t.Fatal(err)
 		}
-		d, err := ioutil.ReadFile(dest)
+		d, err := os.ReadFile(dest)
 		if err != nil {
 			t.Fatal(err)
 		}

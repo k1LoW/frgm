@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -62,10 +61,7 @@ func (a *Alfred) Load(src string) (snippet.Snippets, error) {
 	if !d.IsDir() {
 		return snippets, fmt.Errorf("%s is not directory", src)
 	}
-	i, err := gitignore.CompileIgnoreLines(a.ignore...)
-	if err != nil {
-		return snippets, err
-	}
+	i := gitignore.CompileIgnoreLines(a.ignore...)
 	err = godirwalk.Walk(src, &godirwalk.Options{
 		FollowSymbolicLinks: true,
 		Callback: func(path string, de *godirwalk.Dirent) error {
@@ -108,7 +104,7 @@ func (a *Alfred) Load(src string) (snippet.Snippets, error) {
 
 func (a *Alfred) Decode(in io.Reader, group string) (snippet.Snippets, error) {
 	snippets := snippet.Snippets{}
-	buf, err := ioutil.ReadAll(in)
+	buf, err := io.ReadAll(in)
 	if err != nil {
 		return snippets, err
 	}
