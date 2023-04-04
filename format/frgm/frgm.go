@@ -34,12 +34,8 @@ func (f *Frgm) Load(src string) (snippet.Snippets, error) {
 	if _, err := os.Lstat(src); err != nil {
 		return snippets, err
 	}
-	i, err := gitignore.CompileIgnoreLines(f.ignore...)
-	if err != nil {
-		return snippets, err
-	}
-
-	err = godirwalk.Walk(src, &godirwalk.Options{
+	i := gitignore.CompileIgnoreLines(f.ignore...)
+	err := godirwalk.Walk(src, &godirwalk.Options{
 		FollowSymbolicLinks: true,
 		Callback: func(path string, de *godirwalk.Dirent) error {
 			b, err := de.IsDirOrSymlinkToDir()
@@ -84,12 +80,8 @@ func (f *Frgm) LoadSets(src string) ([]*snippet.SnippetSet, error) {
 	if _, err := os.Lstat(src); err != nil {
 		return sets, err
 	}
-	i, err := gitignore.CompileIgnoreLines(f.ignore...)
-	if err != nil {
-		return sets, err
-	}
-
-	err = godirwalk.Walk(src, &godirwalk.Options{
+	i := gitignore.CompileIgnoreLines(f.ignore...)
+	err := godirwalk.Walk(src, &godirwalk.Options{
 		FollowSymbolicLinks: true,
 		Callback: func(path string, de *godirwalk.Dirent) error {
 			b, err := de.IsDirOrSymlinkToDir()

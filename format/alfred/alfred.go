@@ -62,10 +62,7 @@ func (a *Alfred) Load(src string) (snippet.Snippets, error) {
 	if !d.IsDir() {
 		return snippets, fmt.Errorf("%s is not directory", src)
 	}
-	i, err := gitignore.CompileIgnoreLines(a.ignore...)
-	if err != nil {
-		return snippets, err
-	}
+	i := gitignore.CompileIgnoreLines(a.ignore...)
 	err = godirwalk.Walk(src, &godirwalk.Options{
 		FollowSymbolicLinks: true,
 		Callback: func(path string, de *godirwalk.Dirent) error {
