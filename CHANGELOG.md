@@ -1,5 +1,12 @@
 # Changelog
 
+## [v0.11.0](https://github.com/k1LoW/frgm/compare/v0.10.0...v0.11.0) - 2023-04-04
+- Use octocov by @k1LoW in https://github.com/k1LoW/frgm/pull/31
+- Fix dead img link by @kenchan in https://github.com/k1LoW/frgm/pull/32
+- Update CI settings by @k1LoW in https://github.com/k1LoW/frgm/pull/33
+- Update go version and pkgs by @k1LoW in https://github.com/k1LoW/frgm/pull/35
+- Support arm64 by @k1LoW in https://github.com/k1LoW/frgm/pull/36
+
 ## [v0.10.0](https://github.com/k1LoW/frgm/compare/v0.9.0...v0.10.0) (2020-10-31)
 
 * Add `--rm` option [#30](https://github.com/k1LoW/frgm/pull/30) ([k1LoW](https://github.com/k1LoW))
@@ -124,4 +131,3 @@
 
 
 ## [v0.0.1](https://github.com/k1LoW/frgm/compare/d6c896ee8ad7...v0.0.1) (2020-03-31)
-
