@@ -18,6 +18,7 @@ builds:
   goos:
     - darwin
   goarch:
+    - arm64
     - amd64
   ldflags:
     - -s -w -X github.com/k1LoW/frgm.version={{.Version}} -X github.com/k1LoW/frgm.commit={{.FullCommit}} -X github.com/k1LoW/frgm.date={{.Date}} -X github.com/k1LoW/frgm/version.Version={{.Version}}
@@ -29,6 +30,7 @@ archives:
     - goos: darwin
       format: zip
   files:
+    - LICENSE
     - CREDITS
     - README.md
     - CHANGELOG.md
