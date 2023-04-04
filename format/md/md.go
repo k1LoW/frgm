@@ -1,29 +1,32 @@
 package md
 
 import (
+	"embed"
 	"fmt"
 	"io"
 	"os"
 	"path/filepath"
 	"text/template"
 
-	"github.com/gobuffalo/packr/v2"
 	"github.com/k1LoW/frgm/format"
 	"github.com/k1LoW/frgm/snippet"
 )
 
 var allowExts = format.Exts{".md"}
 
+//go:embed templates/*
+var tmpl embed.FS
+
 type Md struct {
 	ignore []string
-	box    *packr.Box
+	tmpl   embed.FS
 }
 
 // New return *Md
 func New(ignore []string) *Md {
 	return &Md{
 		ignore: ignore,
-		box:    packr.New("md", "./templates"),
+		tmpl:   tmpl,
 	}
 }
 
@@ -66,11 +69,11 @@ func (m *Md) Export(snippets snippet.Snippets, dest string) error {
 }
 
 func (m *Md) Write(wr io.Writer, sets []*snippet.SnippetSet) error {
-	ts, err := m.box.FindString("snippets.md.tmpl")
+	tb, err := m.tmpl.ReadFile("templates/snippets.md.tmpl")
 	if err != nil {
 		return err
 	}
-	tmpl := template.Must(template.New("snippets").Funcs(format.Funcs()).Parse(ts))
+	tmpl := template.Must(template.New("snippets").Funcs(format.Funcs()).Parse(string(tb)))
 	tmplData := map[string]interface{}{
 		"Sets": sets,
 	}
